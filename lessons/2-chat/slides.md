@@ -34,18 +34,23 @@ https://www.nuvolaris.io
 
 ---
 
-# Starting...
 
+```python
+username = "demo"
+password = "demogpu"
+url =  "https://ollama.nuvolaris.io"
+auth = (username, password)
+
+from ollama import Client
+client = Client(host=url, auth=auth)
+
+msg = {"role":"user","content": "what is the capital of Italy"}
+model = "llama3.1:8b"
+
+client.chat(model=model, messages=[msg])
 ```
-$ npx create-assistant-ui@latest web
-lot of output ... #YMMM
-$ cd web
-$ npm run dev
+
+```python
+g = client.chat(model=model, messages=[msg], stream=True)
+for r in g: print(r.message.content, end='')
 ```
-
-- Check `http://locahost:3000`
-![bg right 90%](welcome.png)
-
-- If you type something now, you get an error...
-  - we need to connect to an LLM
-

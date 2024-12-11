@@ -19,4 +19,3 @@ https://www.nuvolaris.io
 
 ![bg](https://fakeimg.pl/350x200/ff0000,0/000?text=Agenda&retina=1)
 
-

@@ -1,0 +1,5 @@
+# Reset
+
+rm ~/.local/bin/ops
+rm -Rvf ~/.nvm
+rm -Rvf ~/.ops
