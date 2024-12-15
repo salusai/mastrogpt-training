@@ -23,7 +23,7 @@ https://www.nuvolaris.io
 
 - #### Enviroment Setup
 - #### Serverless Functions
-- #### Submitting a Form
+- #### Generation API
 - #### Sample: post generator
 
 ---
@@ -32,10 +32,10 @@ https://www.nuvolaris.io
 
 ## 2. Developing Chatbots
 
-- #### Streaming
 - #### Chat api with roles
 - #### Keeping a State
-- #### Sample: a chatbot
+- #### Streaming
+- #### Sample: site navigator chatbot
 
 ---
 
@@ -45,27 +45,25 @@ https://www.nuvolaris.io
 
 - #### Embedding
 - #### Vector DB
-- #### Sample: Querying a Document
+- #### Sample: querying a document
 
 ---
 
 ![bg left:50% 80%](./4-json/4-json.excalidraw.png)
 
-## 4. Multimodal input
+## 4. Function Calling
 
-- #### Processing PDF
-- #### Processing Images
-- #### Structured Output
+- #### Function calling
+- #### Using serverless functions
+- #### Sample: github project inspector
 
 ---
 
 ![bg left:50% 80%](./5-funcall/5-funcall.excalidraw.png)
 
-## 5. Function Calling
+## 5. Agents
 
-- #### Function calling
-- #### Using serverless
-- #### Sample: kubegpt
+- #### Sample: linkedin agent
 
 ---
 

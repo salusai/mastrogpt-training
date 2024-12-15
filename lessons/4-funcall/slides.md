@@ -11,7 +11,7 @@ html: true
 ![bg left:40% 80%](./logo-full-transparent.png)
 
 ## Developing Open LLM applications with Apache OpenServerless 
-# Module 5: Function Call
+# Module 3: Function Calling
 
 https://www.nuvolaris.io
 

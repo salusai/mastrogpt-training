@@ -1,0 +1,20 @@
+{
+  "name": "training",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "npx ops ide devel",
+    "test": "pytest",
+    "cli": "npx ops ai cli"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "apache-openserverless-cli": "^0.1.0-2412142134.dev"
+  }
+}

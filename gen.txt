@@ -1,0 +1,25 @@
+TGT=postgen
+TGT=sitenav
+TGT=querydoc
+
+
+mkdir -p tests
+mkdir -p packages/$TGT/$TGT
+
+echo -e "def $TGT(args):\n  return { \"output\": \"$TGT\"}" >packages/$TGT/$TGT/$TGT.py
+echo -e "#--kind python:default\n#--web true\nimport $TGT\ndef main(args):\n  return {\"body\": $TGT.$TGT(args)}" >packages/$TGT/$TGT/__main__.py
+
+cat <<EOF >tests/test_${TGT}.py
+import packages.$TGT.$TGT.$TGT as $TGT
+def test_$TGT():
+    res = $TGT.$TGT({})
+    assert res["output"] == "$TGT"
+EOF
+
+cat <<EOF >tests/test_${TGT}_int.py
+import os, requests as req
+def test_$TGT():
+    url = os.environ.get("OPSDEV_HOST") + "/api/my/$TGT/$TGT"
+    res = req.get(url).json()
+    assert res.get("output") == "$TGT"
+EOF

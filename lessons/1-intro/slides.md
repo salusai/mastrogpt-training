@@ -8,8 +8,7 @@ backgroundColor: #fff
 html: true
 
 ---
-
-![bg left:40% 80%](./mastrogpt.png)
+![bg left:50% 100%](./mastrogpt.png)
 
 # MastroGPT Course
 ### Developing Open LLM applications with Apache OpenServerless 
@@ -27,7 +26,6 @@ https://www.nuvolaris.io
 - #### Sample: post generator
 
 ---
-
 # Required environment
 
 ### - NodeJS 
@@ -38,7 +36,6 @@ https://www.nuvolaris.io
 - installed automatically
 
 ---
-
 # Installing `nodejs` using `fnm` 1/2
 
 - Linux/Mac:
@@ -75,16 +72,15 @@ $ npm -v
 10.9.0
 ```
 
-
 ---
-
 # Installing `ops` and `pinocchio`
 
 ```
-
+git clone https://github.com/mastrogpt/pinocchio
+cd pinocchio
+npm install
 ```
 
-
 ---
-# Installing
+
 

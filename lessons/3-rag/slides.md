@@ -13,6 +13,8 @@ html: true
 ## Developing Open LLM applications with Apache OpenServerless 
 # Module 3: RAG
 
+https://milvus.io/docs/it/build_RAG_with_milvus_and_ollama.md
+
 https://www.nuvolaris.io
 
 ---
@@ -20,32 +22,52 @@ https://www.nuvolaris.io
 ![bg](https://fakeimg.pl/350x200/ff0000,0/000?text=Agenda&retina=1)
 
 
-
 ---
 
 %cd ../training/lessons/3-rag
+!pwd
+!ls
 
 ```python
-import ollama
-from pathlib import Path
-doc = Path("alice.txt").read_text()
+username = "demo"
+password = "demogpu"
+url =  "https://ollama.nuvolaris.io"
+auth = (username, password)
+
 model = "mxbai-embed-large"
-r = ollama.embeddings(model=model, prompt=doc)
+from ollama import Client
+client = Client(host=url, auth=auth)
+r = client.embed(model=model, input="Hello world")
+emb_size = len(r.embeddings[0])
+```
+
+```python
+from pymilvus import MilvusClient
+client = MilvusClient("alice.db")
+client.create_collection(collection_name="alice", dimension=emb_size)
+
+```
+
+```python
+from spacy.lang.en import English # updated
+from pathlib import Path
+
+nlp = English()
+nlp.add_pipe('sentencizer')
+
+#sentences = [sent.text.strip() for sent in doc.sents]
+
+
+doc = nlp(Path("alice.txt").read_text())
+embs = []
+for sent in doc.sents:
+    text = sent.text.strip()
+    print(text)
+    r = ollama.embed(model=model, input=text)
+    embs.append(r)
+    print(r)
 ```
 
 ---
 
-```python
-from pymilvus import MilvusClient
-client = MilvusClient("milvus_demo.db")
-client.create_collection(collection_name="demo", dimension=768)
-
-
-docs = [
-    "Artificial intelligence was founded as an academic discipline in 1956.",
-    "Alan Turing was the first person to conduct substantial research in AI.",
-    "Born in Maida Vale, London, Turing was raised in southern England.",
-]
-
-```
 
