@@ -1,7 +1,6 @@
-import subprocess
-import os
+import os, subprocess, logging
 import pytest
-import logging
+from dotenv import load_dotenv
 
 @pytest.fixture(scope='session', autouse=True)
 def configure_logging():
@@ -9,8 +8,11 @@ def configure_logging():
 
 @pytest.fixture(scope="session", autouse=True)
 def set_env():
-    # Replace 'your-command' with the actual command to produce the environment variables
-    # For example: 'printenv' or a script that prints 'key=value' lines
+    
+    # load .env
+    load_dotenv()
+    
+    # load secrets
     command = ["npx", "ops", "-config", "-dump"]
     result = subprocess.run(command, capture_output=True, text=True)
     output = result.stdout
@@ -20,6 +22,6 @@ def set_env():
         try:
             key, value = line.split('=', 1)
             os.environ[key] = value
-            #print("OK:", key)
+            print("OK:", key)
         except:
             print("ERR:", line)

@@ -9,7 +9,8 @@
   "scripts": {
     "start": "npx ops ide devel",
     "test": "pytest",
-    "cli": "npx ops ai cli"
+    "cli": "npx ops ai cli",
+    "chat": "npx ops ai chat"
   },
   "keywords": [],
   "author": "",
