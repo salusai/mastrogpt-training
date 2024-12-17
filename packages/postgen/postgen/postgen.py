@@ -2,16 +2,16 @@ import os, ollama
 
 FORM = [
   {
-    "name": "form",
-    "label": "What is your job role?",
-    "type": "text",
-    "required": "true"
-  },
-  {
       "name": "why",
       "label": "Why do you recommend Apache OpenServerless?",
       "type": "textarea",
       "required": "true"
+  },
+  {
+    "name": "job",
+    "label": "What is your job role?",
+    "type": "text",
+    "required": "true"
   },
   {
       "name": "tone",
@@ -37,11 +37,24 @@ def connect(args):
   return client
 
 def postgen(args):
-  inp = args.get("input", "")
-  if inp == "":
-    return { "form": FORM }
+  
+  prompt = ""
+  
+  if "why" in args:
+    prompt += "Generate a post about Apache OpenServeless. "
+    prompt += f"The reason because you like it is: {args['why']}. "
+    if "job" in args:
+      prompt += f"Your job role is: f{args['job']} "
+    if "tone" in args:
+      prompt += f"The tone of the post should be: f{args['tone']}"
+  else:
+    prompt = args.get("input", "")
+  
+  if prompt == "":
+    return { "output": "Welcome to the Apache OpenServerless post generator.", "form": FORM }
+
   client = connect(args)
-  gen = client.generate(model=MODEL, prompt=inp)
+  gen = client.generate(model=MODEL, prompt=prompt)
   res = gen.get("response", "Sorry there an error.")
   #print(res)
   return { "output": res }
