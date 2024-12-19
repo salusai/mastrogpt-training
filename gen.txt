@@ -2,6 +2,7 @@ TGT=postgen
 TGT=sitenav
 TGT=querydoc
 TGT=simple
+TGT=assistant
 
 mkdir -p tests
 mkdir -p packages/$TGT/$TGT
