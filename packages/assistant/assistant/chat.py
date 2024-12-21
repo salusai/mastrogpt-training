@@ -26,7 +26,9 @@ class Chat:
     api_key = None
     if "OLLAMA_HOST" in args:
       url = urlparse(args.get("OLLAMA_HOST"))
-      netloc = f"{args.get("OLLAMA_USERNAME")}:{args.get("OLLAMA_PASSWORD")}@{url.netloc}"
+      username = args.get("OLLAMA_USERNAME")
+      password = args.get("OLLAMA_PASSWORD")
+      netloc = f"{username}:{password}@{url.netloc}"
       base_url = urlunparse((url.scheme, netloc, "/v1", url.params, url.query, url.fragment))
       api_key = "ollama" # not really an api key - just a placeholder
       
