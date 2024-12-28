@@ -3,6 +3,8 @@ TGT=sitenav
 TGT=querydoc
 TGT=simple
 TGT=assistant
+TGT=vdbimport
+TGT=vdbquery
 
 mkdir -p tests
 mkdir -p packages/$TGT/$TGT
