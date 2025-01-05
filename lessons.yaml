@@ -1,6 +1,6 @@
 
 0-hello:
-    - lessons/0-hello/slides.pdf
+    - lessons/0-hello.pdf
     - packages/hello/world/world.py.exercise
     - packages/hello/ollama/ollama.py.exercise
     - packages/hello/milvus/milvus.py.exercise
@@ -19,7 +19,7 @@
     - tests/hello/test_redis_int.py
 
 1-chat:
-    - lessons/1-chat/slides.pdf
+    - lessons/1-chat.pdf
 
 2-postgen:
-    - lessons/2-postgen/slides.pdf
+    - lessons/2-postgen.pdf
