@@ -2,6 +2,9 @@
 0-hello:
     - lessons/0-hello/slides.pdf
     - packages/hello/world/world.py.exercise
+    - packages/hello/ollama/ollama.py.exercise
+    - packages/hello/milvus/milvus.py.exercise
+    - packages/hello/redis/redis.py.exercise
     - packages/hello/ollama/ollama.py
     - packages/hello/world/__main__.py
     - packages/hello/ollama/__main__.py
