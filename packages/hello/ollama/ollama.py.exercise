@@ -1,0 +1,3 @@
+def ollama(args):
+  pass
+  #return { "output": "ollama" }

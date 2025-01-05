@@ -1,18 +1,20 @@
 
 0-hello:
     - lessons/0-hello/slides.pdf
+    - packages/hello/world/world.py.exercise
+    - packages/hello/ollama/ollama.py
     - packages/hello/world/__main__.py
-    - packages/hello/world/world.py
-    - packages/hello/milvus/__main__.py
-    - packages/hello/milvus/milvus.py
+    - packages/hello/ollama/__main__.py
     - packages/hello/redis/__main__.py
-    - packages/hello/redis/redis.py
+    - packages/hello/milvus/__main__.py
+    - tests/hello/test_world_int.py
+    - tests/hello/test_ollama.py
+    - tests/hello/test_ollama_int.py
+    - tests/hello/test_world.py    
+    - tests/hello/test_milvus.py
     - tests/hello/test_milvus_int.py
     - tests/hello/test_redis.py
     - tests/hello/test_redis_int.py
-    - tests/hello/test_milvus.py
-    - tests/hello/test_world_int.py
-    - tests/hello/test_world.py
 
 1-chat:
     - lessons/1-chat/slides.pdf
