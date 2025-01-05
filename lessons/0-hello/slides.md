@@ -19,6 +19,35 @@ html: true
 
 # Environment 
 
+- index here
 ---
 
+# options
 
+## Dev Env
+- start from github  with code space
+
+- local clone
+
+
+---
+
+# services
+
+- in cloud
+
+- locally
+
+---
+
+# Lessons
+
+- open the terminal
+
+- `ops ai lesson 0`
+
+- you should get
+
+  - pdf of the lesson
+  - code of the lesson
+  - test of the lesson
