@@ -1,10 +1,10 @@
 
-import chat
+import history
 
 def assistant(args):
     print(args)
-    ch = chat.Chat(args)
-    output = f"Welcome to {chat.MODEL}"
+    ch = history.Hostory(args)
+    output = f"Welcome to {history.MODEL}"
     input = args.get("input", "")
     if input != "":
         ch.prompt("user", input)
