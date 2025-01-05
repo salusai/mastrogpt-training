@@ -5,15 +5,14 @@
     - packages/hello/ollama/ollama.py.exercise
     - packages/hello/milvus/milvus.py.exercise
     - packages/hello/redis/redis.py.exercise
-    - packages/hello/ollama/ollama.py
     - packages/hello/world/__main__.py
     - packages/hello/ollama/__main__.py
     - packages/hello/redis/__main__.py
     - packages/hello/milvus/__main__.py
+    - tests/hello/test_world.py
     - tests/hello/test_world_int.py
     - tests/hello/test_ollama.py
     - tests/hello/test_ollama_int.py
-    - tests/hello/test_world.py    
     - tests/hello/test_milvus.py
     - tests/hello/test_milvus_int.py
     - tests/hello/test_redis.py
