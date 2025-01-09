@@ -9,11 +9,11 @@ def configure_logging():
 @pytest.fixture(scope="session", autouse=True)
 def set_env():
     
-    # load .env
-    load_dotenv()
+    load_dotenv(".env")
+    load_dotenv("tests/.env", override=True)
     
     # load secrets
-    command = ["npx", "ops", "-config", "-dump"]
+    command = ["ops", "-config", "-dump"]
     result = subprocess.run(command, capture_output=True, text=True)
     output = result.stdout
 
