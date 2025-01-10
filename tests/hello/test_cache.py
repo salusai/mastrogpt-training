@@ -1,13 +1,21 @@
 import sys, os 
 sys.path.append("packages/hello/cache")
-
-import redis
 import cache
 
-def test_cache():    
-    res = cache.cache({})
-    assert res.get("output") == "no op specified"
-    res = cache.cache({"op": "set", "key": "hello", "value": "world"})
-    assert res.get("output") == "OK"
-    res = cache.cache({"op": "get", "key": "hello"})
-    assert res.get("output") == "world"
+def test_cache():
+    args = {}
+    res = cache.cache(args)
+    assert res.get("output") == "Please provide a redis command."
+
+    args = {"input": "SET hello world"}
+    res = cache.cache(args)
+    assert res.get("output") == 'True'
+    
+    args = {"input": "GET hello"}
+    res = cache.cache(args)
+    assert res.get("output") == 'world'
+
+    args = {"input": "this is an error"}
+    res = cache.cache(args)
+    assert res.get("output") == """unknown command 'this', with args beginning with: 'is' 'an' 'error' """
+

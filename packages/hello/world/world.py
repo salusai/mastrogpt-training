@@ -1,2 +1,3 @@
 def world(args):
-  return { "output": "world" }
+  name = args.get("input", "world")
+  return { "output": f"Hello, {name}" }

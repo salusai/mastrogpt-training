@@ -1,17 +1,30 @@
 import os
 import redis
+import shlex
+import json
+
+def to_string(response):
+    if response is None:
+        return "None"  # For null responses
+    elif isinstance(response, bytes):
+        return response.decode()  # Decode byte strings
+    elif isinstance(response, (list, tuple)):
+        return "[" + ", ".join(redis_response_to_string(item) for item in response) + "]"
+    else:
+        return str(response)  # For integers, booleans, etc.
+
 def cache(args):
   
   rd = redis.from_url(args.get("REDIS_URL", os.getenv("REDIS_URL")))
   prefix = args.get("REDIS_PREFIX", os.getenv("REDIS_PREFIX"))
   
-  op = args.get("op", "no-op")
-  key = f"{prefix}/{args.get("key", "no-key")}"
-  value = args.get("value", "no-value")
-  res = "no op specified"
+  cmd = shlex.split(args.get("input", ""))
   
-  if op == "get":
-    res = rd.get(key).decode("UTF-8")
-  elif op == "set":
-    res = "OK" if rd.set(key, value) else "ERR"
-  return { "output": res }
+  res = "Please provide a redis command."
+  if len(cmd) > 0:
+    try:
+      res = rd.execute_command(*cmd)
+    except Exception as e:
+      res = e
+    
+  return { "output": to_string(res) }
