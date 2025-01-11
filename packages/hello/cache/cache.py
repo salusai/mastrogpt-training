@@ -9,7 +9,7 @@ def to_string(response):
     elif isinstance(response, bytes):
         return response.decode()  # Decode byte strings
     elif isinstance(response, (list, tuple)):
-        return "[" + ", ".join(redis_response_to_string(item) for item in response) + "]"
+        return "[" + ", ".join(to_string(item) for item in response) + "]"
     else:
         return str(response)  # For integers, booleans, etc.
 
@@ -25,6 +25,6 @@ def cache(args):
     try:
       res = rd.execute_command(*cmd)
     except Exception as e:
-      res = e
+      res = str(e)
     
   return { "output": to_string(res) }
