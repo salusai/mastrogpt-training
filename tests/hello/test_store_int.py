@@ -15,4 +15,8 @@ def test_store():
 
     args = {"input": "!hello"}
     out = req.post(url, json=args).json().get("output")
-    assert out.find("hello") != -1
+    assert out.find("removed hello") != -1
+
+    args = {"input": "*"}
+    out = req.post(url, json=args).json().get("output")
+    assert out.find("hello") == -1
