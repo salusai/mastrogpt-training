@@ -5,8 +5,8 @@ import store
 
 def test_store():
     args = {}
-    s3,bucket = store.s3(args)
-    print(store.show(s3,bucket,""))
+    s3,bucket = store.connect(args)
+    #print(store.show(s3,bucket,""))
 
     key = "test/hello"
     assert store.write(s3, bucket, "error") == "please separate file from content with '='"
