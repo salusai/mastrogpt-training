@@ -1,25 +1,35 @@
 
-0-hello:
-    - lessons/0-hello.pdf
+1-setup:
+    - lessons/1-setup.pdf
+    - packages/hello/stream/__main__.py
+    - packages/hello/stream/stream.py
+    - packages/hello/world/world.py
     - packages/hello/world/world.py.exercise
-    - packages/hello/ollama/ollama.py.exercise
-    - packages/hello/milvus/milvus.py.exercise
-    - packages/hello/redis/redis.py.exercise
     - packages/hello/world/__main__.py
-    - packages/hello/ollama/__main__.py
-    - packages/hello/redis/__main__.py
-    - packages/hello/milvus/__main__.py
-    - tests/hello/test_world.py
+    - packages/hello/cache/__main__.py
+    - packages/hello/cache/cache.py
+    - packages/hello/llm/llm.py
+    - packages/hello/llm/__main__.py
+    - packages/hello/store/__main__.py
+    - packages/hello/store/store.py
+    - packages/hello/vdb/embed.py
+    - packages/hello/vdb/vdb.py
+    - packages/hello/vdb/__main__.py
+    - tests/hello/test_cache_int.py
+    - tests/hello/test_cache.py
+    - tests/hello/test_llm_int.py
+    - tests/hello/test_store.py
+    - tests/hello/test_vdb_int.py
+    - tests/hello/test_store_int.py
+    - tests/hello/test_stream_int.py
+    - tests/hello/test_stream.py
+    - tests/hello/test_vdb.py
+    - tests/hello/test_llm.py
     - tests/hello/test_world_int.py
-    - tests/hello/test_ollama.py
-    - tests/hello/test_ollama_int.py
-    - tests/hello/test_milvus.py
-    - tests/hello/test_milvus_int.py
-    - tests/hello/test_redis.py
-    - tests/hello/test_redis_int.py
+    - tests/hello/test_world.py
 
-1-chat:
-    - lessons/1-chat.pdf
+2-stream:
+    - lessons/2-stream.pdf
 
-2-postgen:
-    - lessons/2-postgen.pdf
+3-form:
+    - lessons/3-form.pdf

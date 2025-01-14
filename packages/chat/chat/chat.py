@@ -6,11 +6,9 @@ client = None
 def connect(args):
   global client
   if client is None:
-    host = args.get("OLLAMA_HOST", os.environ.get("OLLAMA_HOST"))
-    username = args.get("OLLAMA_USERNAME", os.environ.get("OLLAMA_USERNAME"))
-    password = args.get("OLLAMA_PASSWORD", os.environ.get("OLLAMA_PASSWORD"))
-    auth = (username, password)
-    #print(host, auth)
+    host = f"https://{args.get("OLLAMA_HOST", os.environ.get("OLLAMA_HOST"))}"
+    token = args.get("OLLAMA_TOKEN", os.environ.get("AUTH"))
+    auth = (token.split(":")[0], token.split(":")[1])
     client = ollama.Client(host, auth=auth)
   return client
 

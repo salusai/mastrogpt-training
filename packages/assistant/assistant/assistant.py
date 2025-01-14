@@ -3,7 +3,7 @@ import history
 
 def assistant(args):
     print(args)
-    ch = history.Hostory(args)
+    ch = history.History(args)
     output = f"Welcome to {history.MODEL}"
     input = args.get("input", "")
     if input != "":
