@@ -6,13 +6,13 @@ import store
 def test_store():
     args = {}
     s3,bucket = store.connect(args)
-    #print(store.show(s3,bucket,""))
 
     key = "test/hello"
     assert store.write(s3, bucket, "error") == "please separate file from content with '='"
     filecontent = f"{key}=world"
     assert store.write(s3, bucket, filecontent) == 'test/hello size 5'
-    
+
+    #print(store.show(s3,bucket,""))    
     assert store.check(s3, bucket, key) == f"{key} size 5"
     assert store.check(s3, bucket, "not/found") == "not/found not found"
 

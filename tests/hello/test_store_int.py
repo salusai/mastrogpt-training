@@ -7,7 +7,7 @@ def test_store():
 
     args = {"input": ">hello=world"}
     out = req.post(url, json=args).json().get("output")
-    assert out = 'hello size 5'
+    assert out == 'hello size 5'
     
     args = {"input": "*"}
     out = req.post(url, json=args).json().get("output")

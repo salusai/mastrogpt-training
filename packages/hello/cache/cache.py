@@ -13,10 +13,15 @@ def to_string(response):
     else:
         return str(response)  # For integers, booleans, etc.
 
+
+rd = None
+prefix = "error:"
+
 def cache(args):
-  
-  rd = redis.from_url(args.get("REDIS_URL", os.getenv("REDIS_URL")))
-  prefix = args.get("REDIS_PREFIX", os.getenv("REDIS_PREFIX"))
+  global rd, prefix
+  if not rd:
+    rd = redis.from_url(args.get("REDIS_URL", os.getenv("REDIS_URL")))
+    prefix = args.get("REDIS_PREFIX", os.getenv("REDIS_PREFIX"))
   
   cmd = shlex.split(args.get("input", ""))
   

@@ -8,10 +8,7 @@ def configure_logging():
 
 @pytest.fixture(scope="session", autouse=True)
 def set_env():
-    
-    load_dotenv(".env")
-    load_dotenv("tests/.env", override=True)
-    
+        
     # load secrets
     command = ["ops", "-config", "-dump"]
     result = subprocess.run(command, capture_output=True, text=True)
@@ -22,6 +19,10 @@ def set_env():
         try:
             key, value = line.split('=', 1)
             os.environ[key] = value
-            print("OK:", key)
+            #print("OK:", key)
         except:
             print("ERR:", line)
+
+    # override with testenv
+    load_dotenv(".env")
+    load_dotenv("tests/.env", override=True)

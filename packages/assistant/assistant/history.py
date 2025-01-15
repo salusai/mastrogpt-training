@@ -2,6 +2,7 @@ import redis
 import uuid
 import openai
 import json
+import os
 from urllib.parse import urlparse, urlunparse
 
 ROLE = "You are an helpful assistant."
@@ -25,11 +26,23 @@ class History:
     base_url = None
     api_key = None
     if "OLLAMA_HOST" in args:
-      url = urlparse(args.get("OLLAMA_HOST"))
-      username = args.get("OLLAMA_USERNAME")
-      password = args.get("OLLAMA_PASSWORD")
-      netloc = f"{username}:{password}@{url.netloc}"
+      
+      #host = f"https://{args.get("OLLAMA_HOST", os.environ.get("OLLAMA_HOST"))}"
+      #token = args.get("OLLAMA_TOKEN", os.environ.get("AUTH"))
+      #auth = (token.split(":")[0], token.split(":")[1])
+      #client = ollama.Client(host, auth=auth)
+
+      host = urlparse(args.get("OLLAMA_HOST"))
+      token = args.get("OLLAMA_TOKEN", os.environ.get("AUTH"))
+      #username = args.get("OLLAMA_USERNAME")
+      #password = args.get("OLLAMA_PASSWORD")
+      #netloc = f"{token}@{url.netloc}"
       base_url = urlunparse((url.scheme, netloc, "/v1", url.params, url.query, url.fragment))
+
+      #host = args.get("OLLAMA_HOST", os.environ.get("OLLAMA_HOST"))
+      #token = args.get("OLLAMA_TOKEN", os.environ.get("AUTH"))
+      #base_url = f"https://{token}@{host}/v1"      
+      
       api_key = "ollama" # not really an api key - just a placeholder
       
     if base_url:
