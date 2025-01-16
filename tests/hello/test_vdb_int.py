@@ -1,6 +1,7 @@
 import os, requests as req
 def test_vdb():
     llm = os.environ.get("OPSDEV_HOST") + "/api/my/hello/vdb"
+    
     args = {"drop_collection": "test"}
     res = req.post(llm, json=args).json()
     
