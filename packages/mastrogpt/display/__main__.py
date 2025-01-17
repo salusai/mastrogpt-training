@@ -1,5 +1,6 @@
 #--web true
-#--kind python:default
+# --kind python:default
+#--docker ghcr.io/sciabarracom/openserverless-runtime-python:v3.12-2501171530
 
 import chevron
 import chess, chess.svg

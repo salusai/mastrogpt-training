@@ -6,11 +6,9 @@ import os, json
 from pathlib import Path
 from urllib.parse import urlparse, urlunparse
 
-def main(args):
-  current_dir = os.path.dirname(os.path.abspath(__file__))
-  
-  
+def main(args):  
   services = {}    
+  current_dir = os.path.dirname(os.path.abspath(__file__))
   files = os.listdir(current_dir)
   files.sort()
   for file in files:
