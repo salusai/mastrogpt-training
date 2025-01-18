@@ -4,15 +4,19 @@
         "url": "hello/stream"
     },
     {
-        "name": "S3",
-        "url": "hello/store"
-    },
-    {
         "name": "Redis",
         "url": "hello/cache"
     },
     {
         "name": "Milvus",
-        "url": "hello/stream"
+        "url": "hello/vdb"
+    },
+    {
+        "name": "S3",
+        "url": "hello/store"
+    },
+    {
+        "name": "Ollama",
+        "url": "hello/llm"
     }
 ]

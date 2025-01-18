@@ -60,11 +60,11 @@ def remove(s3, bucket, prefix):
 def store(args):
   inp = args.get("input", "")
   out = """
-usage:
-  @<file>       upload a local <file>
-  *<substring>  list files with <subtring> in path
-  !<prefix>     remove files starting with <prefix>
-  ><file>=<content> create a <file> with <content>
+Usage:
+  *<substring>      list files with <subtring> in path
+  !<prefix>         remove files starting with <prefix>
+  +<file>=<content> create a <file> with <content>
+  ?                 this message
 """
   (s3, bucket) = connect(args)
   if inp.startswith("@"):
@@ -73,7 +73,7 @@ usage:
     out = show(s3, bucket, inp[1:])
   elif inp.startswith("!"):
     out = remove(s3, bucket, inp[1:])
-  elif inp.startswith(">"):
+  elif inp.startswith("+"):
     out = write(s3, bucket, inp[1:])
     
   return {"output": out}

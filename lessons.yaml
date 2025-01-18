@@ -4,9 +4,8 @@
     - packages/mastrogpt/index/95-Hello.json
     - packages/hello/stream/__main__.py
     - packages/hello/stream/stream.py
-    - packages/hello/world/world.py
-    - packages/hello/world/world.py.exercise
     - packages/hello/world/__main__.py
+    - packages/hello/world/world.py.exercise
     - packages/hello/cache/__main__.py
     - packages/hello/cache/cache.py
     - packages/hello/llm/llm.py
