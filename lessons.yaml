@@ -1,6 +1,7 @@
 
 1-setup:
-    - lessons/1-setup.pdf
+    - lessons/1-setup.md
+    - packages/mastrogpt/index/95-Hello.json
     - packages/hello/stream/__main__.py
     - packages/hello/stream/stream.py
     - packages/hello/world/world.py
