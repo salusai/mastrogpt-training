@@ -29,7 +29,22 @@
     - tests/hello/test_world.py
 
 2-stream:
-    - lessons/2-stream.pdf
+    - lessons/2-stream.md
 
 3-form:
-    - lessons/3-form.pdf
+    - lessons/3-form.md
+
+
+4-assistant:
+    - lessons/4-assistant.md
+
+5-vision:
+    - lessons/5-vision.md
+
+
+6-vectordb:
+    - lessons/6-vectordb.md
+
+7-rag:
+    - lessons/7-rag.md
+
