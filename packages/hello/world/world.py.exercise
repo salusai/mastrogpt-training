@@ -1,5 +1,4 @@
 def world(args):
-def world(args):
   ## TODO: uncomment the following lines
   #name = args.get("input", "world")
   #return { "output": f"Hello, {name}" }
