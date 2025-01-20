@@ -15,14 +15,19 @@ def test_vdb_int():
     req.post(vdb, json=args).json()
 
     args = {"input": "*world"}
+    # three times for a timing issue
+    req.post(vdb, json=args)
+    req.post(vdb, json=args)
     res = req.post(vdb, json=args).json()
-    assert res.get("output").count("world") >= 2
     
+    assert res.get("output").count("world") >= 2
     
     args = {"input": "!world"}
     req.post(vdb, json=args).json()
 
     args = {"input": "*world"}
+    req.post(vdb, json=args)
+    req.post(vdb, json=args)
     res = req.post(vdb, json=args).json()
     assert res.get("output").count("world") == 0
     
