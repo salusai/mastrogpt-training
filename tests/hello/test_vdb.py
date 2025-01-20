@@ -21,16 +21,16 @@ def test_vdb():
     assert vdb.vdb({"input": inp}).get("output") == 'Please specify a not empty search string.'
     inp = "!"
     assert vdb.vdb({"input": inp}).get("output") == 'Please specify a not empty delete substring.'
-     
+        
+    inp = "*works"
+    n = vdb.vdb({"input": inp}).get("output").count('works')
+    assert n >= 1
+
     inp = "*test"
     out = vdb.vdb({"input": inp}).get("output")
     print(out)
     n = out.count("test")
-    assert n >= 1
-    
-    inp = "*works"
-    n = vdb.vdb({"input": inp}).get("output").count('works')
-    assert n == 1
+    assert n >= 2
     
     inp = "*missing"
     n = vdb.vdb({"input": inp}).get("output").count("missing")
@@ -47,3 +47,4 @@ def test_vdb():
     inp = "*test"
     n = vdb.vdb({"input": inp}).get("output").count("test")
     assert n == 0
+

@@ -1,5 +1,5 @@
 import os, requests as req
-def test_llm():
+def test_llm_int():
     url = os.environ.get("OPSDEV_HOST") + "/api/my/hello/llm"
     res = req.get(url).json()
     assert res["output"].startswith("Welcome to llama")

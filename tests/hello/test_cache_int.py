@@ -1,6 +1,6 @@
 import os, requests as req
 
-def test_cache():
+def test_cache_int():
     url = os.getenv("OPSDEV_HOST") + "/api/my/hello/cache"
     res = req.get(url).json()
     assert res.get("output") == "Please provide a redis command."

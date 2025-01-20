@@ -1,11 +1,11 @@
 import os, requests as req
-def test_store():
+def test_store_int():
 
     url = os.environ.get("OPSDEV_HOST") + "/api/my/hello/store"
     out = req.get(url).json().get("output")
-    assert out.startswith("\nusage:")
+    assert out.startswith("\nUsage:")
 
-    args = {"input": ">hello=world"}
+    args = {"input": "+hello=world"}
     out = req.post(url, json=args).json().get("output")
     assert out == 'hello size 5'
     
