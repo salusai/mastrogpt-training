@@ -1,6 +1,11 @@
 
 1-setup:
     - lessons/1-setup.md
+    - lessons/1-setup/discord.png
+    - lessons/1-setup/architecture-trasparent.png
+    - lessons/1-setup/architecture.png
+    - lessons/1-setup/mastrogpt-request.png
+    - lessons/1-setup/reddit.png
     - packages/mastrogpt/index/95-Hello.json
     - packages/hello/stream/__main__.py
     - packages/hello/stream/stream.py
@@ -34,13 +39,11 @@
 3-form:
     - lessons/3-form.md
 
-
 4-assistant:
     - lessons/4-assistant.md
 
 5-vision:
     - lessons/5-vision.md
-
 
 6-vectordb:
     - lessons/6-vectordb.md
