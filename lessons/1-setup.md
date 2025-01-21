@@ -55,7 +55,6 @@ html: true
 - You can also self-host it!
   -  `openserverless.apache.org`
 
-
 ---
 
 # <!--fit--> Discord: `bit.ly/openserverless-discord`
@@ -66,13 +65,12 @@ html: true
 
 ---
 
-# <!--fit--> Reddit: https://reddit.com/r/openserverless
+# <!--fit--> Reddit: `reddit.com/r/openserverless`
 
 <br>
 <center>
 <img width="80%" src="1-setup/reddit.png">
 </center>
-
 
 
 ---
@@ -85,11 +83,22 @@ html: true
 
 ---
 
+![bg right:50% 90%](1-setup/tests.png)
+
+# Tests
+
+- Streamings
+
+---
+
+![bg right:50% 90%](1-setup/stream.png)
+
 # Stream
 
 - Streamings
 
 ----
+![bg right:50% 90%](1-setup/redis.png)
 
 # REDIS
 
@@ -97,17 +106,22 @@ html: true
 
 ----
 
+![bg right:50% 90%](1-setup/s3.png)
+
 # S3 storage
 
 - Streaming
 
 ---
 
+![bg right:50% 90%](1-setup/milvus.png)
+
 # Milvus
 
 - Milvus
 
 ---
+![bg right:50% 90%](1-setup/ollama.png)
 
 # Ollama 
 
@@ -118,7 +132,16 @@ html: true
 ![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=Fixing+a+Test)
 
 --- 
+# <!--fit--> Exercise: fixing a failing test (trivial bug)
 
+- Search for the `TODO:` string
+- Investigate why a test is failing
+- Fix it and run the unit test
+- Deploy and run the integration test
+
+<center><img src="1-setup/fixbug.png"></center>
+
+---
 ![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=CLI+Tools)
 
 --- 
@@ -127,24 +150,19 @@ html: true
 
 ---
 
-![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=Fix+Test)
+![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=What+is+Next?)
+
 
 ---
 
+# Lesson 2 - Streaming Chat
 
-fix the test
+ Implementing an LLM chat with streaming support
 
----
+## More lessons
+- Lesson 3: Form Support
+- Lesson 4: Building an Assistant
+- Lesson 5: Vision Support
+- Lesson 6: VectorDB
+- Lesson 7: Bulding a RAG
 
-![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=CLI+Tools)
-
-----
-
-```
-ops ai
-```
----
-
-![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=Your+Chat)
-
----

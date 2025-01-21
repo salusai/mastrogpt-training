@@ -6,6 +6,14 @@
     - lessons/1-setup/architecture.png
     - lessons/1-setup/mastrogpt-request.png
     - lessons/1-setup/reddit.png
+    - lessons/1-setup/fixbug.png
+    - lessons/1-setup/milvus.png
+    - lessons/1-setup/ollama.png
+    - lessons/1-setup/redis.png
+    - lessons/1-setup/s3.png
+    - lessons/1-setup/stream.png
+    - lessons/1-setup/tests.png
+        
     - packages/mastrogpt/index/95-Hello.json
     - packages/hello/stream/__main__.py
     - packages/hello/stream/stream.py
