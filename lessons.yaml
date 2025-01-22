@@ -12,8 +12,9 @@
     - lessons/1-setup/redis.png
     - lessons/1-setup/s3.png
     - lessons/1-setup/stream.png
-    - lessons/1-setup/tests.png
-        
+    - lessons/1-setup/tests.png   
+    - lessons/1-setup/codespaces.png
+    - lessons/reverse.py 
     - packages/mastrogpt/index/95-Hello.json
     - packages/hello/stream/__main__.py
     - packages/hello/stream/stream.py
@@ -58,4 +59,3 @@
 
 7-rag:
     - lessons/7-rag.md
-

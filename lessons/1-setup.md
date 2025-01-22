@@ -20,7 +20,7 @@ html: true
 
 ## Lesson 1 
 
-# Environment Setup
+# First Steps
 
 ---
 ![bg left:50% 80%](assets/mastrogpt.png)
@@ -29,13 +29,13 @@ html: true
 
 - Course Support
 
-- Overview of Services
+- Testing Services
 
-- Fixing a test
+- The `hello`s
 
 - CLI tools 
 
-- Your first chat
+- Exercise: reverse
 
 ---
 
@@ -54,6 +54,17 @@ html: true
 
 - You can also self-host it!
   -  `openserverless.apache.org`
+
+---
+![bg right:50% 70%](1-setup/codespaces.png)
+
+### GitHub Codespaces
+- Free up to 120 hours
+- Recommended: **GitHub** >> **Settings** >> **Codespaces**
+- Change: **Default Idle Timout** to 5 minutes
+- You can also use:
+   - Your local **VScode** 
+   - Your local **Docker** 
 
 ---
 
@@ -75,61 +86,24 @@ html: true
 
 ---
 
-![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=Overview+of+Services)
+![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=Testing+Services)
 
 --- 
 
 ![bg](1-setup/architecture-trasparent.png)
 
+
 ---
 
 ![bg right:50% 90%](1-setup/tests.png)
 
-# Tests
+# `hello` package
 
-- Streamings
-
----
-
-![bg right:50% 90%](1-setup/stream.png)
-
-# Stream
-
-- Streamings
-
-----
-![bg right:50% 90%](1-setup/redis.png)
-
-# REDIS
-
-- REDIS
-
-----
-
-![bg right:50% 90%](1-setup/s3.png)
-
-# S3 storage
-
-- Streaming
-
----
-
-![bg right:50% 90%](1-setup/milvus.png)
-
-# Milvus
-
-- Milvus
-
----
-![bg right:50% 90%](1-setup/ollama.png)
-
-# Ollama 
-
-- Ollama with llmam 3.1:8b
-
---- 
-
-![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=Fixing+a+Test)
+- Collection samples for all the services
+- Launching the tests verifies all the services
+- Also useful for interacting and debugging
+- Servics are all both `local`  
+ and `remote`
 
 --- 
 # <!--fit--> Exercise: fixing a failing test (trivial bug)
@@ -142,11 +116,146 @@ html: true
 <center><img src="1-setup/fixbug.png"></center>
 
 ---
+
+![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=The+hellos)
+
+---
+![bg right:50% 90%](1-setup/ollama.png)
+
+# `hello/llm` 
+
+- Access to the LLM
+- Ollama with
+  - `llama3.1:8b`
+    - powerful small model          
+  - `llama3.2-vision:11b`
+    - with vision capabilities 
+  - `mxbai-embed-large:latest`
+    - embedding model 
+
+---
+
+![bg right:50% 90%](1-setup/stream.png)
+
+# `hello/stream`
+
+- An example of the streamer
+- Return the ASCII of each caratecter
+- Stream the input in 1 second interval
+
+----
+![bg right:50% 90%](1-setup/redis.png)
+
+# `hello/cache`
+
+- Talk directly with REDIS
+- Useful for debugging
+- Remember there is a required `PREFIX` for the keys!
+  - `<username>:`
+
+----
+
+![bg right:50% 90%](1-setup/s3.png)
+
+# `hello/store`
+
+- S3 Storage
+- Files are uploaded here
+- Simple commands:
+  - `*<prefix>` list content by prefix
+  - `!<prefix>` remove content by prefix
+  - `+<file>=<content>` create a file on the fly
+
+---
+
+![bg right:50% 90%](1-setup/milvus.png)
+
+# `hello/vdb`
+
+- Milvus Vector Database
+- Store what you type
+- Simple commands:
+  - `*<search>` vector search
+  - `!<word>` remove entries containing a word
+
+
+---
 ![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=CLI+Tools)
 
 --- 
+ 
+ # <!--fit-->`ops` docs on https://openserverless.apache.org
 
-![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=Your+first+Chat)
+ - It is also self-documenting:
+
+```sh
+$ ops               # main help message
+$ ops -h            # list embedded tools
+$ ops -t            # list tasks 
+```
+We will use mostly:
+- `ops ide`  support 
+- `ops ai`   A.I. oriented plugin
+
+---
+# `ops` essentials
+- basics commands to manage actions
+
+```
+ops action list
+ops action create reverse lessons/reverse.py --web true
+ops invoke reverse
+ops invoke reverse input=hello
+ops url reverse
+curl https://openserverless.dev/api/v1/namespaces/msciab/actions/reverse
+ops action update reverse lessons/reverse.py --web true
+ops url reverse
+curl https://openserverless.dev/api/v1/web/msciab/default/reverse
+curl "https://openserverless.dev/api/v1/web/msciab/default/reverse?input=hello"
+ops action delete reverse
+ops action list
+```
+
+--- 
+# `ops ide` essentials
+
+- manages packaging and hot-reload
+```
+ops ide                           # support tools main subcommand
+ops ide login                     # login to one openserverless instance
+ops ide deploy                    # package and deploy all the actions
+ops ide deploy hello/llm          # package and deploy one action
+ops ide devel                     # incremental development mode   
+ops ide clean                     # clean temporary files
+```
+
+---
+
+# `ops ai` essential
+- our AI-oriented plugin
+```
+ops ai                 # help
+ops ai lesson          # download lessons and solutions
+ops ai user            # update users
+ops ai chat            # command line chat
+ops ai cli             # the Python REPL 
+ops ai new             # create a new service
+```
+---
+
+![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=Exercise:+reverse)
+
+
+---
+
+# <!--fit--> Exercise: Implement a `reverse` chat
+- `ops ai new reverse msciab`
+- implement the code to a reverse  functions
+   - read input, return output
+   - if empty input, return usage
+- `ops ide deploy msciab/reverse`
+- Add the service to `packages/mastrogpt/index/90-Tests.json`
+- Use it in Pinocchio
 
 ---
 
