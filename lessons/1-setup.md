@@ -88,9 +88,6 @@ html: true
 
 ![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=Testing+Services)
 
---- 
-
-![bg](1-setup/architecture-trasparent.png)
 
 
 ---
