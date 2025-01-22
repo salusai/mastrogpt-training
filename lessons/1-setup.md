@@ -186,9 +186,9 @@ html: true
  - It is also self-documenting:
 
 ```sh
-$ ops               # main help message
-$ ops -h            # list embedded tools
-$ ops -t            # list tasks 
+ops               # main help message
+ops -h            # list embedded tools
+ops -t            # list tasks 
 ```
 We will use mostly:
 - `ops ide`  support 
@@ -200,7 +200,7 @@ We will use mostly:
 
 ```
 ops action list
-ops action create reverse lessons/reverse.py --web true
+ops action create reverse lessons/reverse.py
 ops invoke reverse
 ops invoke reverse input=hello
 ops url reverse
