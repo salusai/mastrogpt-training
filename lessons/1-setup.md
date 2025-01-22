@@ -248,7 +248,7 @@ ops ai new             # create a new service
 
 ---
 
-# <!--fit--> Exercise: Implement a `reverse` chat
+# <!--fit--> Exercise: implement a `reverse` chat
 - `ops ai new reverse msciab`
 - implement the code to a reverse  functions
    - read input, return output
