@@ -27,67 +27,21 @@ html: true
 
 ### Agenda
 
-- Course Support
+- Integrated Services
 
-- Testing Services
-
-- The `hello`s
+- Examples: the `hello`s
 
 - CLI tools 
 
 - Exercise: reverse
 
----
+- About Nuvolaris
 
-![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=Course+Support)
-
----
-
-![bg right:50% 70%](1-setup/mastrogpt-request.png)
-#### How to get an account?
-
-- We provide free accounts on  `openserverless.dev` 
-
-  - Write `account`now in chat (we have your email)
-  - Ask later for an account on `mastrogpt.com`
-  - Also you can use Linkedin, Discord, Email...
-
-- You can also self-host it!
-  -  `openserverless.apache.org`
-
----
-![bg right:50% 70%](1-setup/codespaces.png)
-
-### GitHub Codespaces
-- Free up to 120 hours
-- Recommended: **GitHub** >> **Settings** >> **Codespaces**
-- Change: **Default Idle Timout** to 5 minutes
-- You can also use:
-   - Your local **VScode** 
-   - Your local **Docker** 
+- What is next?
 
 ---
 
-# <!--fit--> Discord: `bit.ly/openserverless-discord`
-<br>
-<center>
-<img width="80%" src="1-setup/discord.png">
-</center>
-
----
-
-# <!--fit--> Reddit: `reddit.com/r/openserverless`
-
-<br>
-<center>
-<img width="80%" src="1-setup/reddit.png">
-</center>
-
-
----
-
-![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=Testing+Services)
-
+![bg](https://fakeimg.pl/700x400/ff0000,0/0A6BAC?retina=1&text=Integrated+Services)
 
 
 ---
@@ -114,7 +68,7 @@ html: true
 
 ---
 
-![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=The+hellos)
+![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=Examples:+the+"hello"s)
 
 ---
 ![bg right:50% 90%](1-setup/ollama.png)
@@ -253,6 +207,19 @@ ops ai new             # create a new service
 - `ops ide deploy msciab/reverse`
 - Add the service to `packages/mastrogpt/index/90-Tests.json`
 - Use it in Pinocchio
+
+---
+
+![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=About+Nuvolaris)
+
+
+---
+
+![bg](assets/architecture.png)
+
+---
+
+![bg 95%](1-setup/pricelist.png)
 
 ---
 
