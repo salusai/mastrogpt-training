@@ -122,3 +122,61 @@ for line in g: print(line)
 
 
 
+# Required environment
+
+### - NodeJS 
+- required to run the frontend
+### - Pinocchio
+- the user interface
+### - Python and `ops` clin
+- installed automatically
+
+---
+# Installing `nodejs` using `fnm` 1/2
+
+- Linux/Mac:
+
+```bash
+curl -fsSL https://fnm.vercel.app/install | bash
+source /home/msciab/.bashrc
+fnm use --install-if-missing 22
+```
+
+### Test
+```
+$ node -v
+v22.12.0
+$ npm -v
+10.9.0
+```
+
+---
+# Installing `nodejs` using `fnm` 2/2
+
+
+- Windows: 
+```
+winget install Schniz.fnm
+fnm env --use-on-cd | Out-String | Invoke-Expression
+fnm use --install-if-missing 22
+```
+### Test
+```
+$ node -v
+v22.12.0
+$ npm -v
+10.9.0
+```
+
+---
+# Installing `ops` and `pinocchio`
+
+```
+git clone https://github.com/mastrogpt/pinocchio
+cd pinocchio
+npm install
+```
+
+---
+
+
