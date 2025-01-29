@@ -45,6 +45,11 @@
 
 2-stream:
     - lessons/2-stream.md
+    - packages/chat/deepseek/__main__.py
+    - packages/chat/deepseek/deepseek.py
+    - packages/mastrogpt/index/80-Chat.json
+    - packages/chat/deepseek/deepseek.py
+    - tests/streamock.py
 
 3-form:
     - lessons/3-form.md
