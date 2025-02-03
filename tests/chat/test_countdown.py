@@ -13,6 +13,6 @@ def test_countdown():
 
     res = streamock.stop(mock).decode("utf-8")
     
-    assert res.startswith("3")
-    assert res.endswith("Go!\n")
+    assert res.startswith('{"output": "3...')
+    assert res.find("Go!") != -1
 

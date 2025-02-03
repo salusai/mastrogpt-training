@@ -25,7 +25,7 @@ html: true
 ---
 ![bg left:50% 80%](assets/mastrogpt.png)
 
-### Agenda
+# An LLM chat with streaming
 
 - Accessing the LLM
 
@@ -34,7 +34,6 @@ html: true
 - How to stream
 
 - Exercise: Streaming LLM
-
 
 ---
 
@@ -117,6 +116,10 @@ Low level commands  **DO NOT DO THIS WAY - FOR ILLUSTRATION**
 
 ---
 
+![bg 85%](2-stream/simple.png)
+
+---
+
 ![bg](https://fakeimg.pl/700x400/ff0000,0/0A6BAC?retina=1&text=Managing+Secrets)
 
 ---
@@ -153,13 +156,13 @@ Low level commands  **DO NOT DO THIS WAY - FOR ILLUSTRATION**
 
 ### Is is NOT  in any  `.env`
 ```
-grep AUTH .env packages/.env tests/.env
+!grep AUTH .env packages/.env tests/.env
 ```
-`#(nothing)#`
+*(no output)*
 
 ## It is in the config!
 ```
-ops -config -dump | grep AUTH
+!ops -config -dump | grep AUTH
 ```
 `AUTH=<uid>:<secret>`
 
@@ -171,7 +174,7 @@ ops -config -dump | grep AUTH
 - When you login you get the secrets for deployment
 
 ```
-ops -config -dump
+!ops -config -dump
 ```
 
 - You can then propagate the secrets to actions adding:
@@ -182,7 +185,7 @@ ops -config -dump
 #--param AUTH $AUTH
 ```
 
-- The use `ops ide deploy chat/simple.py`  
+- Then use `ops ide deploy chat/simple.py`  
 
 ---
 
@@ -192,8 +195,7 @@ ops -config -dump
 
 ### Deployment see: <br>  config, `.env` and `packages/.env`
 
-## The test environment is different from the deployemnt environment
-
+## The test environment is different from the deploement environment
 
 ---
 
@@ -285,7 +287,7 @@ s.sendall(json.dumps(msg).encode('utf-8'))
 ```
 
 ---
-# The `stream` function for an iterator
+## The `stream` function for an iterator
 
 ```python
 import json, socket, traceback
@@ -298,7 +300,7 @@ def stream(args, lines):
       for line in lines:
         msg = {"output": line}
         s.sendall(json.dumps(msg).encode("utf-8"))
-        out += str(line)
+        out += str(line) #; print(line, end='')
     except Exception as e:
       traceback.print_exc(e)
       out = str(e)
@@ -329,18 +331,23 @@ streamock.stop(mock)
 ---
 # `countdown.py` and `test_countdown.py`
 ```
-!code packages/chat/countdown.py
+# exit for cli to avoid busy ports
+code packages/chat/countdown.py
+code tests/chat/test_countdown.py
 ```
 Note the `"streaming": true`to enable streaming
 ```python
-return { "output": out, "streaming": True }
+return { "body": { "output": out, "streaming": True } }
 ```
 Checking the test and deploying
 ```
-!code packages/chat/countdown.py
-!ops ide deploy chat/countdown.py
-!ops ide deploy mastrogpt/index
+ops ide deploy chat/countdown.py
+ops ide deploy mastrogpt/index
 ```
+
+---
+
+![bg 85%](2-stream/countdown.png)
 
 ---
 
@@ -351,10 +358,16 @@ Checking the test and deploying
 
 # Exercise 1: Add the secrets
 
- Search `TODO: E2.1` and add the parameters
+ Search `TODO:E2.1` add params for accessing and authorizing Ollama access
+
+Hint:
 
 ```
 #--param XXX $XXX
+```
+
+```
+args.get("XXX", os.getenv("XXX"))
 ```
 
 ### Result: test_stateless.test_url should pass
@@ -364,7 +377,7 @@ Checking the test and deploying
 
 # Exercise 2: Add the streaming
 
-Search `TODO: E2.2` and insert the `stream` implementation, changing:
+Search `TODO:E2.2` and insert the `stream` implementation, changing:
 
 ```python
 msg = {"output": line}
@@ -376,20 +389,25 @@ dec = json.loads(line.decode("utf-8")).get("response", "")
 msg = {"output": out}
 out += dec
 ```
+
 ### Result: test_stateless.test_stream should pass
 
 ---
 
 # Exercise 3: model switcher
 
-### if input is `deepseek` change to `deepseek-r1:32b`
+Search `TODO:E2.3` add if to switch to `llama3.1:8b` or `deepseek-r1:32b` on input 'llmama' or 'deepseek'
 
+- if input is `deepseek` change the model to `deepseek-r1:32b`
 
-### if input is `llama` change to `llama3.1:8b` 
+- if input is `llama` change the model to `llama3.1:8b` 
 
-### Bonus: replace `<think>` to `[think]`
+Hint: set `lines = ['string']` to stream a static message
 
-### Result: I can change to llama and deeepseek
+Bonus: fix `stream` to replace `<think>` with `[think]`. 
+
+### Result: test if you can change the MODEL
+
 
 ---
 
@@ -407,4 +425,3 @@ Support for form, display and advanced rendering
 - Lesson 6: VectorDB
 - Lesson 7: Bulding a RAG
 
----

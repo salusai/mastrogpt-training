@@ -17,10 +17,9 @@ def stream(args, lines):
     s.connect((sock, port))
     try:
       for line in lines:
-        #print(line, end='')
         msg = {"output": line}
         s.sendall(json.dumps(msg).encode("utf-8"))
-        out += str(line)
+        out += str(line) #; print(line, end='')
     except Exception as e:
       traceback.print_exc(e)
       out = str(e)

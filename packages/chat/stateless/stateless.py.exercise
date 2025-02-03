@@ -1,0 +1,33 @@
+import os, requests as req, json, socket
+
+MODEL="llama3.1:8b"
+#MODEL="deepseek-r1:32b"
+
+def url(args):
+  #TODO:E2.1
+  host = ...
+  auth = ...
+  #END TODO
+  base = f"https://{auth}@{host}"
+  return f"{base}/api/generate"
+
+import json, socket, traceback
+def stream(args, lines):
+  #TODO:E2.2
+  pass
+  #END TODO
+
+def stateless(args):
+  global MODEL
+  llm = url(args)
+  out = f"Welcome to {MODEL}"
+  inp = args.get("input", "")
+  if inp != "":
+    #TODO:E2.3 
+    # add if to switch to llama3.1:8b or deepseek-r1:32b
+    # on input 'llmama' or 'deepseek'
+    msg = { "model": MODEL, "prompt": inp, "stream": True }
+    lines = req.post(llm, json=msg, stream=True).iter_lines()
+    #/TODO
+    out = stream(args, lines)
+  return { "output": out, "streaming": True}

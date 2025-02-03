@@ -29,12 +29,19 @@ def stream(args, lines):
   return out
 
 def stateless(args):
-  
+  global MODEL
   llm = url(args)
   out = f"Welcome to {MODEL}"
   inp = args.get("input", "")
   if inp != "":
-    msg = { "model": MODEL, "prompt": inp, "stream": True }
-    lines = req.post(llm, json=msg, stream=True).iter_lines()
+    if inp == "llama":
+      MODEL = "llama3.1:8b"
+      lines = [f"switched to {MODEL}"]
+    elif inp == "deepseek":
+      MODEL = "deepeek-r1:32b"
+      lines = [f"switched to {MODEL}"]
+    else:
+      msg = { "model": MODEL, "prompt": inp, "stream": True }
+      lines = req.post(llm, json=msg, stream=True).iter_lines()
     out = stream(args, lines)
   return { "output": out, "streaming": True}

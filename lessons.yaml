@@ -48,13 +48,15 @@
     - lessons/2-stream.md
     - lessons/2-stream.pdf
     - lessons/2-stream/runSelectedText.png
+    - lessons/2-stream/countdown.png
+    - lessons/2-stream/simple.png
     - packages/mastrogpt/index/80-Chat.json
     - packages/chat/simple.py
     - tests/streamock.py
     - packages/chat/countdown.py
     - tests/chat/test_countdown.py
-    - packages/chat/stateless/stateless.py
-    - packages/chat/stateless/__main__.py
+    - packages/chat/stateless/stateless.py.exercise
+    - packages/chat/stateless/__main__.py.exercise
     - tests/chat/test_stateless.py
 
 3-form:
