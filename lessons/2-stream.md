@@ -31,10 +31,14 @@ html: true
 
 - Managing Secrets
 
-- Streaming an answer
+- How to stream
 
-- Streaming with the LLM
+- Exercise: Streaming LLM
 
+
+---
+
+![bg](2-stream/runSelectedText.png)
 
 ---
 
@@ -104,10 +108,10 @@ Checking the code:
 
 # Deploying the action
 
-Low level commands (it can be simpler!)
+Low level commands  **DO NOT DO THIS WAY - FOR ILLUSTRATION**
 ```bash
 !ops package create chat
-!ops action create chat/simple packages/chat/simple.py \
+!ops action update chat/simple packages/chat/simple.py \
      --web=true --param AUTH {auth} --param OLLAMA_HOST {host}
 ```
 
@@ -117,17 +121,275 @@ Low level commands (it can be simpler!)
 
 ---
 
-![bg](https://fakeimg.pl/700x400/ff0000,0/0A6BAC?retina=1&text=Streaming+an+Answer)
+#  From where the `OLLAMA_HOST` and `AUTH` are coming from?
+
+### Multiple places!
+
+- From the config **loaded at the login**
+- From the `.env` file
+- From the `packages/.env` for actions
+- from the `tests/.env` for tests
+
+**(the later override the former)**
 
 
 ---
 
-![bg](https://fakeimg.pl/700x400/ff0000,0/0A6BAC?retina=1&text=Streaming+an+Answer)
+# Where is `OLLAMA_HOST`?
+
+  - in `tests/.env` for actions
+  - in `packages/.env` for tests
+```
+!grep OLLAMA_HOST packages/.env
+!grep OLLAMA_HOST tests/.env
+```
+`OLLAMA_HOST=ollama.nuvolaris.io`
+`OLLAMA_HOST=ollamatest.nuvolaris.io`
+
+### note that they are different!
+---
+
+# Where is `AUTH`?
+
+### Is is NOT  in any  `.env`
+```
+grep AUTH .env packages/.env tests/.env
+```
+`#(nothing)#`
+
+## It is in the config!
+```
+ops -config -dump | grep AUTH
+```
+`AUTH=<uid>:<secret>`
+
+
+--- 
+
+# How to propagate secrets to actions
+
+- When you login you get the secrets for deployment
+
+```
+ops -config -dump
+```
+
+- You can then propagate the secrets to actions adding:
+
+```
+#--web true 
+#--param OLLAMA_HOST $OLLAMA_HOST
+#--param AUTH $AUTH
+```
+
+- The use `ops ide deploy chat/simple.py`  
 
 ---
 
-![bg](https://fakeimg.pl/700x400/ff0000,0/0A6BAC?retina=1&text=Streaming+the+LLM)
+# Important!
 
+### Tests and CLI see: <br> config, `.env` and `tests/.env`
+
+### Deployment see: <br>  config, `.env` and `packages/.env`
+
+## The test environment is different from the deployemnt environment
+
+
+---
+
+# Best practices
+
+### Always get secrets from args and env
+
+```python
+host = args.get("OLLAMA_HOST", os.getenv("OLLAMA_HOST"))
+```
+
+### Put the args in the main file of the action
+```
+#--param OLLAMA_HOST $OLLAMA_HOST
+```
+### Deploy with <br> `ops ide deploy [<action>]`
+
+---
+
+# About `ops ide deploy`
+
+- Built on top of `ops actions` and `ops packages`
+- Works **currently** only for `python`, `node` and `php`
+- Create packages for actions
+- Create a zip for multi-file actions
+- Resolve Dependencies: `requirements.txt`, `packages.json`
+- Extract command line arguments from `#--<arg> <val>`
+  - Required to propagate secrets: `#--param AUTH $AUTH`
+- Integrates with `ops ide devel` for incremental deploy
+
+---
+
+![bg](https://fakeimg.pl/700x400/ff0000,0/0A6BAC?retina=1&text=How+to+stream)
+
+---
+
+# Let's see the streaming in `ops ai cli`
+
+```python
+# prepare
+import os, requests as req
+url = f'https://{os.getenv("AUTH")}@{os.getenv("OLLAMA_HOST")}/api/generate'
+# streaming request
+msg = {"model": "llama3.1:8b", "prompt": "Capital of Italy", "stream": True} 
+res = req.post(url, json=msg)
+```
+Result from the LLM is a stream:
+```python
+lines = res.iter_lines()
+for line in lines:
+  print(line)
+```
+
+---
+
+# Countdown generator
+
+```python
+import time
+def count_to_zero(n):
+  while n > 0:
+    yield f"{n}...\n"
+    n -= 1
+    time.sleep(1)
+  yield "Go!\n"
+```
+
+Test:
+```python
+for line in count_to_zero(10):
+  print(line, end='')
+```
+
+---
+## To stream we use a socket!
+- The action is long running
+- We send intermediate results in the socket
+
+Connect:
+```python
+sock = args.get("STREAM_HOST")
+port = int(args.get("STREAM_PORT"))
+with socket.connect((sock, port)) as s:
+```
+
+Send a json `msg`: 
+```python
+s.sendall(json.dumps(msg).encode('utf-8'))
+```
+
+---
+# The `stream` function for an iterator
+
+```python
+import json, socket, traceback
+def stream(args, lines):
+  sock = args.get("STREAM_HOST") ; port = int(args.get("STREAM_PORT"))
+  out = ""
+  with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.connect((sock, port))
+    try:
+      for line in lines:
+        msg = {"output": line}
+        s.sendall(json.dumps(msg).encode("utf-8"))
+        out += str(line)
+    except Exception as e:
+      traceback.print_exc(e)
+      out = str(e)
+  return out
+```
+
+---
+### Testing a stream with a mock!
+
+```python
+import sys; sys.path.append("tests")
+import streamock
+args = streamock.args()
+mock = streamock.start(args)
+```
+
+Running the tests:
+```python
+lines = count_to_zero(10) # extracting the generator
+stream(args, lines)       # streaming the generated items
+```
+
+Collecting the results:
+```python
+streamock.stop(mock)
+```
+
+---
+# `countdown.py` and `test_countdown.py`
+```
+!code packages/chat/countdown.py
+```
+Note the `"streaming": true`to enable streaming
+```python
+return { "output": out, "streaming": True }
+```
+Checking the test and deploying
+```
+!code packages/chat/countdown.py
+!ops ide deploy chat/countdown.py
+!ops ide deploy mastrogpt/index
+```
+
+---
+
+![bg](https://fakeimg.pl/350x200/ff0000,0/0A6BAC?retina=1&text=Exercise:+Streaming+LLM)
+
+
+---
+
+# Exercise 1: Add the secrets
+
+ Search `TODO: E2.1` and add the parameters
+
+```
+#--param XXX $XXX
+```
+
+### Result: test_stateless.test_url should pass
+
+
+---
+
+# Exercise 2: Add the streaming
+
+Search `TODO: E2.2` and insert the `stream` implementation, changing:
+
+```python
+msg = {"output": line}
+out += line
+```
+to:
+```python
+dec = json.loads(line.decode("utf-8")).get("response", "")
+msg = {"output": out}
+out += dec
+```
+### Result: test_stateless.test_stream should pass
+
+---
+
+# Exercise 3: model switcher
+
+### if input is `deepseek` change to `deepseek-r1:32b`
+
+
+### if input is `llama` change to `llama3.1:8b` 
+
+### Bonus: replace `<think>` to `[think]`
+
+### Result: I can change to llama and deeepseek
 
 ---
 
@@ -144,3 +406,5 @@ Support for form, display and advanced rendering
 - Lesson 5: Vision Support
 - Lesson 6: VectorDB
 - Lesson 7: Bulding a RAG
+
+---

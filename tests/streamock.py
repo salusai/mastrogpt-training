@@ -3,6 +3,11 @@ import socket, threading
 result = b''
 server = None
 
+def args(args={}):
+    args["STREAM_HOST"] = "127.0.0.1"
+    args["STREAM_PORT"] = "9999"
+    return args
+
 def loop():
     global server, result
     client, _ = server.accept()
@@ -24,7 +29,7 @@ def start(args):
     thread.start()
     return thread
 
-def result(thread):
+def stop(thread):
     global result, server
     thread.join()
     server.close()

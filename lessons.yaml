@@ -45,11 +45,15 @@
 
 2-stream:
     - lessons/2-stream.md
-    - packages/chat/deepseek/__main__.py
-    - packages/chat/deepseek/deepseek.py
+    - lessons/2-stream/runSelectedText.png
     - packages/mastrogpt/index/80-Chat.json
-    - packages/chat/deepseek/deepseek.py
+    - packages/chat/simple.py
     - tests/streamock.py
+    - packages/chat/countdown.py
+    - tests/chat/test_countdown.py
+    - packages/chat/stateless/stateless.py
+    - packages/chat/stateless/__main__.py
+    - tests/chat/test_stateless.py
 
 3-form:
     - lessons/3-form.md
@@ -65,3 +69,4 @@
 
 7-rag:
     - lessons/7-rag.md
+
