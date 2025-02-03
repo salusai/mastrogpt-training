@@ -1,6 +1,7 @@
 
 1-setup:
     - lessons/1-setup.md
+    - lessons/1-setup.pdf
     - lessons/1-setup/discord.png
     - lessons/1-setup/architecture-trasparent.png
     - lessons/1-setup/architecture.png
@@ -45,6 +46,7 @@
 
 2-stream:
     - lessons/2-stream.md
+    - lessons/2-stream.pdf
     - lessons/2-stream/runSelectedText.png
     - packages/mastrogpt/index/80-Chat.json
     - packages/chat/simple.py
