@@ -98,16 +98,16 @@ print(out)
 
 ---
 
-# Putting all togegether in an action
+# Putting all together in an action
 
 Checking the code:
 ```
 !code packages/chat/simple.py
 ```
 
-# Deploying the action
+# Deploying the action "manually"
 
-Low level commands  **DO NOT DO THIS WAY - FOR ILLUSTRATION**
+**YOU DO NOT DO THIS WAY - FOR ILLUSTRATION PURPOSE**
 ```bash
 !ops package create chat
 !ops action update chat/simple packages/chat/simple.py \
@@ -156,7 +156,7 @@ Low level commands  **DO NOT DO THIS WAY - FOR ILLUSTRATION**
 
 ### Is is NOT  in any  `.env`
 ```
-!grep AUTH .env packages/.env tests/.env
+!grep AUTH  packages/.env tests/.env
 ```
 *(no output)*
 
@@ -195,23 +195,24 @@ Low level commands  **DO NOT DO THIS WAY - FOR ILLUSTRATION**
 
 ### Deployment see: <br>  config, `.env` and `packages/.env`
 
-## The test environment is different from the deploement environment
+## The *test* variables are **different** from the *deployment* variables
+### <!--fit--> In test you use *local* services instead of production ones
 
 ---
 
 # Best practices
 
-### Always get secrets from args and env
+### Always get secrets from `args` **and**  default `getenv`
 
 ```python
 host = args.get("OLLAMA_HOST", os.getenv("OLLAMA_HOST"))
 ```
 
-### Put the args in the main file of the action
+### <!--fit--> Add the `#--param` in the main file of the action or `__main__`
 ```
 #--param OLLAMA_HOST $OLLAMA_HOST
 ```
-### Deploy with <br> `ops ide deploy [<action>]`
+### Pass args to the action deploying with <br> `ops ide deploy [<action>]`
 
 ---
 
@@ -273,18 +274,19 @@ for line in count_to_zero(10):
 ## To stream we use a socket!
 - The action is long running
 - We send intermediate results in the socket
+- we receive the socket location in `args` as: 
+  - `STREAM_HOST` usually fixed
+  - `STREAM_PORT` always changing
 
-Connect:
 ```python
 sock = args.get("STREAM_HOST")
 port = int(args.get("STREAM_PORT"))
-with socket.connect((sock, port)) as s:
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.connect((sock, port)) # double parenthesis NOT error
+    # ... prepare a msg in json ...
+    s.sendall(json.dumps(msg).encode('utf-8'))
 ```
 
-Send a json `msg`: 
-```python
-s.sendall(json.dumps(msg).encode('utf-8'))
-```
 
 ---
 ## The `stream` function for an iterator
@@ -308,7 +310,7 @@ def stream(args, lines):
 ```
 
 ---
-### Testing a stream with a mock!
+### `streamock`:  a mock to test the stream
 
 ```python
 import sys; sys.path.append("tests")
@@ -331,7 +333,7 @@ streamock.stop(mock)
 ---
 # `countdown.py` and `test_countdown.py`
 ```
-# exit for cli to avoid busy ports
+# WARN: exit for cli to avoid busy ports!
 code packages/chat/countdown.py
 code tests/chat/test_countdown.py
 ```
@@ -386,7 +388,7 @@ out += line
 to:
 ```python
 dec = json.loads(line.decode("utf-8")).get("response", "")
-msg = {"output": out}
+msg = {"output": dec}
 out += dec
 ```
 
