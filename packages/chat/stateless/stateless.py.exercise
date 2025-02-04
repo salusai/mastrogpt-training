@@ -13,9 +13,24 @@ def url(args):
 
 import json, socket, traceback
 def stream(args, lines):
-  #TODO:E2.2
-  pass
-  #END TODO
+  sock = args.get("STREAM_HOST")
+  port = int(args.get("STREAM_PORT"))
+  out = ""
+  with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.connect((sock, port))
+    try:
+      for line in lines:
+        #print(line, end='')     
+        #TODO:E2.2 fix this streaming implementation
+        # line is a json string and you have to extract only the "response" field
+        msg = {"output": line.decode("utf-8")}
+        out += str(line)
+        #END TODO
+        s.sendall(json.dumps(msg).encode("utf-8"))
+    except Exception as e:
+      traceback.print_exc(e)
+      out = str(e)
+  return out
 
 def stateless(args):
   global MODEL

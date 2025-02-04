@@ -243,12 +243,14 @@ url = f'https://{os.getenv("AUTH")}@{os.getenv("OLLAMA_HOST")}/api/generate'
 msg = {"model": "llama3.1:8b", "prompt": "Capital of Italy", "stream": True} 
 res = req.post(url, json=msg)
 ```
-Result from the LLM is a stream:
 ```python
 lines = res.iter_lines()
 for line in lines:
   print(line)
 ```
+
+`b'{"model":"llama3.1:8b","response":"R","done":false}'
+b'{"model":"llama3.1:8b","response":"ome","done":false}'`
 
 ---
 
@@ -360,6 +362,8 @@ ops ide deploy mastrogpt/index
 
 # Exercise 1: Add the secrets
 
+You have to add the code to retrieve the secrets from the environment.
+
 Search `TODO:E2.1` add params for accessing and authorizing Ollama access
 
 Hint:
@@ -377,19 +381,18 @@ args.get("XXX", os.getenv("XXX"))
 
 ---
 
-# Exercise 2: Add the streaming
+# Exercise 2: Fix the streaming
+
+You have to change the default streaming function from extracting the response from the answer.
 
 Search `TODO:E2.2` and insert the `stream` implementation, changing:
 
 ```python
-msg = {"output": line}
-out += line
-```
-to:
-```python
-dec = json.loads(line.decode("utf-8")).get("response", "")
-msg = {"output": dec}
-out += dec
+-msg = {"output": line.decode("utf-8")}
+-out += str(line)
++dec = json.loads(line.decode("utf-8")).get("response", "")
++msg = {"output": dec}
++out += dec
 ```
 
 ### Result: test_stateless.test_stream should pass
@@ -408,8 +411,7 @@ Hint: set `lines = ['string']` to stream a static message
 
 Bonus: fix `stream` to replace `<think>` with `[think]`. 
 
-### Result: test if you can change the MODEL
-
+### Result: test if you can change the model
 
 ---
 
