@@ -360,7 +360,7 @@ ops ide deploy mastrogpt/index
 
 # Exercise 1: Add the secrets
 
- Search `TODO:E2.1` add params for accessing and authorizing Ollama access
+Search `TODO:E2.1` add params for accessing and authorizing Ollama access
 
 Hint:
 
