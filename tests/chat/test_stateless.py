@@ -17,7 +17,9 @@ def test_stream():
     msg = { "model": "llama3.1:8b", "prompt": "What is the capital of Italy?", "stream": True} 
     lines = req.post(llm, json=msg).iter_lines()
     out = stateless.stream(args, lines)
+    assert out.find("{") == -1
     assert out.find("Rom") != -1 
     stream = streamock.stop(mock).decode("utf-8")
+    assert out.find("{") == -1
     assert stream.find("Rom") != -1
      
