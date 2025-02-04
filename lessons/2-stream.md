@@ -407,9 +407,7 @@ Search `TODO:E2.3` add if to switch to `llama3.1:8b` or `deepseek-r1:32b` on inp
 
 - if input is `llama` change the model to `llama3.1:8b` 
 
-Hint: set `lines = ['string']` to stream a static message
-
-Bonus: fix `stream` to replace `<think>` with `[think]`. 
+Bonus: fix `stream` to replace `<think>` with `[think]` (no hints) 
 
 ### Result: test if you can change the model
 

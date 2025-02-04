@@ -40,9 +40,9 @@ def stateless(args):
   if inp != "":
     #TODO:E2.3 
     # add if to switch to llama3.1:8b or deepseek-r1:32b
-    # on input 'llmama' or 'deepseek'
+    # on input 'llmama' or 'deepseek' and change the inp to "who are you"
+    #END TODO
     msg = { "model": MODEL, "prompt": inp, "stream": True }
     lines = req.post(llm, json=msg, stream=True).iter_lines()
-    #/TODO
     out = stream(args, lines)
   return { "output": out, "streaming": True}
