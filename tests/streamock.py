@@ -1,11 +1,11 @@
-import socket, threading
+import socket, threading, time
 
 result = b''
 server = None
 
 def args(args={}):
     args["STREAM_HOST"] = "127.0.0.1"
-    args["STREAM_PORT"] = "9999"
+    args["STREAM_PORT"] = str(9999+int(time.time()) % 20000)
     return args
 
 def loop():
