@@ -11,7 +11,6 @@ html: true
 ---
 ![bg left:50% 70%](assets/nuvolaris-logo.png)
 
-
 ### Developing Open LLM applications with
 
 <center>
