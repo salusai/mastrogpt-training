@@ -1,9 +1,5 @@
 [
     {
-        "name": "Hello",
-        "url": "form/hello"
-    },
-    {
         "name": "Auth",
         "url": "form/auth"
     },

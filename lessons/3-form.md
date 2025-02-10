@@ -38,7 +38,6 @@ html: true
 
 ---
 
-
 ![bg](https://fakeimg.pl/700x400/ff0000,0/0A6BAC?retina=1&text=Authentication)
 
 ---
@@ -58,11 +57,11 @@ html: true
 
 
 ---
-# Some useful *magic* shell tricks
+# Some useful **magic** shell tricks
 
 - When you login, a `~/.wskpros` file is created with an API KEY
 - You can load the key with `source ~/.wskpros` (in a bash shell)
-- you can get the url with `ops url <action>``
+- you can get the url with `ops url <action>`
   - extract the last line with `| tail +2`
   - store in a variable with `VAR=$(...)`
   - use POST and the flags `blocking=true` and `result=true`
@@ -128,12 +127,22 @@ get msciab:TOKEN:pinocchio
 ---
 # Auth code
 
-```
-Prova
+```python
+import os, redis
+def unauthorized(args):
+  [user, secret] = args.get("token", "_:_").split(":")
+  rd = redis.from_url(args.get("REDIS_URL", os.getenv("REDIS_URL")))
+  check = rd.get(f"{args.get("REDIS_PREFIX", os.getenv("REDIS_PREFIX"))}TOKEN:{user}") or b''
+  return check.decode("utf-8") != secret
 ```
 
---- 
-# Testing AUTH
+Checking:
 
+```python  
+def auth(args):
+  if unauthorized(args):
+    return { "output": "you are not authenticated" }
+  return { "output": "you are authenticated" }
+```
 
 ---
