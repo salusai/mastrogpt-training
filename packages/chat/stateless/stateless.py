@@ -46,6 +46,9 @@ def stateless(args):
     elif inp == "deepseek":
       MODEL="deepseek-r1:32b"
       inp = "Who are you?"
+    elif inp == "mistral":
+      MODEL="mistral:latest"
+      inp = "Who are you?"
     #END TODO
     msg = { "model": MODEL, "prompt": inp, "stream": True }
     lines = req.post(llm, json=msg, stream=True).iter_lines()
