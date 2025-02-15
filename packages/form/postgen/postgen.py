@@ -85,7 +85,7 @@ def postgen(args):
 
       inp = f"""Generate a post promoting Apache OpenServerless.
 Your job role is {data['job']}.
-The reason bfecause you are Apache OpenServerless is {data['why']}.
+The reason because you are using Apache OpenServerless is {data['why']}.
 The tone of the post should be {data['tone']}.
 """
       out = chat(args, inp)

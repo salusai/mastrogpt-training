@@ -60,7 +60,20 @@
     - tests/chat/test_stateless.py
 
 3-form:
+    - lessons/3-form.pdf
     - lessons/3-form.md
+    - lessons/3-form/form.png
+    - lessons/3-form/chesspuzzle.png
+    - packages/form/puzzle/puzzle.py.exercise
+    - packages/form/puzzle/__main__.py
+    - packages/form/hello.py
+    - packages/form/auth/auth.py
+    - packages/form/postgen/__main__.py
+    - packages/form/postgen/postgen.py
+    - packages/form/auth/__main__.py
+    - tests/form/test_puzzle.py
+    - tests/form/test_auth_int.py
+    - tests/form/test_auth.py
 
 4-assistant:
     - lessons/4-assistant.md

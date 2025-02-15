@@ -32,7 +32,7 @@ html: true
 
 - Display: Puzzle
 
-- Exercise: your form and display
+- Exercise: Custom Puzzle
 
 ---
 
@@ -64,7 +64,7 @@ html: true
   - use POST and the flags `blocking=true` and `result=true`
 
 ---
-## Action authentication
+### Action authentication
 
 ```
 code form/hello.py                               # note NO --web true
@@ -72,7 +72,6 @@ ops ide devel                                    # deploy everything
 ops url form/hello                               # get url
 curl https://openserverless.dev/api/v1/namespaces/msciab/actions/form/hello
 ```
-
 `{"code":"IcWTiEX6DsWKXUmO3AlswEoPvSG5A8wS","error":"The resource requires authentication, which was not supplied with the request"}`
 
 ```
@@ -81,7 +80,6 @@ URL=$(ops url form/hello | tail +2)            # get URL
 FLAGS="blocking=true&result=true"              # additional flags
 curl -u $AUTH -X POST "$URL?$FLAGS"
 ```
-
 `{"body":"Hello, world"}`
 
 ---
@@ -89,6 +87,7 @@ curl -u $AUTH -X POST "$URL?$FLAGS"
 
 - Pinocchio uses public **web actions**
   - by default they are **UNPROTECTED**
+  - **WARNING**: *you can access them freely if you know the URL*
 
 ```
 URL=$(ops url form/auth | tail +2)
@@ -101,8 +100,7 @@ curl $URL
 }
 `
 
-- you can access them freely if you know the URL
-  - however it supports an **authentication token**
+### However it supports an **authentication token**
 
 ---
 
@@ -221,7 +219,7 @@ if type(inp) is dict and "form" in inp:
   inp = f"""
 Generate a post promoting Apache OpenServerless.
 Your job role is {data['job']}.
-The reason bfecause you are Apache OpenServerless is {data['why']}.
+The reason because you are using Apache OpenServerless is {data['why']}.
 The tone of the post should be {data['tone']}.
 """
   out = chat(args, inp)
@@ -278,18 +276,18 @@ def extract_fen(out):
   return fen
 ```
 
-### It is very common to extract output with regexp
+### It is very common to extract output with regexps
 
 ---
 ![bg](https://fakeimg.pl/700x400/ff0000,0/0A6BAC?retina=1&text=Exercise)
 
 ---
-# Exercise
+# Exercise: Custom Puzzle
 
-- Modify the `puzzle` command to show a form to customize the puzzle:
-
+- Modify the `puzzle` command to show a form to customize the puzzle.
+- Change the prompt to ask for a puzzle with the selected pieces
 <center>
 <img src="3-form/chesspuzzle.png">
 </center>
 
-- Change the prompt to ask for a puzzle with the selected pieces
+Check the solution with: `ops ai lessons 3-form --solution`
