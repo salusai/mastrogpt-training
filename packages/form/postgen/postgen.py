@@ -5,24 +5,26 @@ USAGE = """I will generate a post on Apache OpenServerless post for you!"""
 
 FORM = [
   {
-      "name": "why",
-      "label": "Why do you recommend Apache OpenServerless?",
-      "type": "textarea",
-      "required": "true"
-  },
-  {
     "name": "job",
     "label": "What is your job role?",
     "type": "text",
     "required": "true"
   },
   {
+      "name": "why",
+      "label": "Why do you recommend Apache OpenServerless?",
+      "type": "textarea",
+      "required": "true"
+  },
+  {
     "name": "tone",
-    "label": "What tone should the post have?",
-    "type": "text",
-    "required": "true"
+    "label": "Which tone the post should have?",
+    "required": "true",
+    "type": "radio",
+    "options": ["Formal", "Informal", "Enthusiastic", "Motivational"]
   }
 ]
+
 
 import json, socket, traceback
 def stream(args, lines):

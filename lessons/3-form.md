@@ -11,7 +11,6 @@ html: true
 ---
 ![bg left:50% 70%](assets/nuvolaris-logo.png)
 
-
 ### Developing Open LLM applications with
 
 <center>
@@ -20,21 +19,20 @@ html: true
 
 ## Lesson 3
 
-## Form support and Prompt Engineering
-
+## Form and Display support
 
 ---
 ![bg left:50% 80%](assets/mastrogpt.png)
 
-## Form support and Prompt Engineering
+## Form and Display Support
 
 - Authentication
 
-- Using form: post generator
+- Form: PostGen
 
-- Prompt Engineering: a web rag
+- Display: Puzzle
 
-- Exercise: TODO
+- Exercise: your form and display
 
 ---
 
@@ -54,7 +52,6 @@ html: true
      - but you can provide **custom** authentication
 
 ### Pinocchio supports custom authentication
-
 
 ---
 # Some useful **magic** shell tricks
@@ -146,3 +143,153 @@ def auth(args):
 ```
 
 ---
+![bg](https://fakeimg.pl/700x400/ff0000,0/0A6BAC?retina=1&text=Form:+PostGen)
+
+---
+# Form Field: a dictionary 
+  - `label`: the description
+  - `name`: the field used in the input
+  - `required`: is it required?
+  - `type`: can be `text`, `textarea`, `checkbox`, `radio`, `file`
+  - if `radio`:
+     - `options`: array of options 
+  - if `file`:
+     - upload a (small!) file in base64
+---
+### Example Form
+
+```python
+FORM = [{
+  "name": "why",
+  "label": "Why do you recommend Apache OpenServerless?",
+  "type": "textarea",
+  "required": "true"
+  }, {
+  "name": "job",
+  "label": "What is your job role?",
+  "type": "text",
+  "required": "true"
+  }, {
+  "name": "tone",
+  "label": "What tone should the post have?",
+  "type": "text",
+  "required": "true"
+}]
+```
+
+---
+
+### Return a `form` field with a list of fields
+
+```python
+return {
+  "form": FORM                          # request a form 
+  "streaming": True                     # enable streaming
+  "output": "Please fill a form"        # output
+}
+```
+<center>
+<img  src="3-form/form.png">
+</center>
+
+---
+
+# Process a form
+
+```python
+# get the input field
+inp = args.get("input", "")
+# ensure it is a dictionary with a 'form' field
+if type(inp) is dict and "form" in inp:
+     # get the form data
+     data = inp["form"]
+     for field in data.keys():
+        # get the value of the field
+        value = data[field]
+        # do something with it
+        print(value)
+```
+
+---
+
+# Prompt engineering
+
+```python
+if type(inp) is dict and "form" in inp:
+  # get the form data
+  data = inp["form"]
+  inp = f"""
+Generate a post promoting Apache OpenServerless.
+Your job role is {data['job']}.
+The reason bfecause you are Apache OpenServerless is {data['why']}.
+The tone of the post should be {data['tone']}.
+"""
+  out = chat(args, inp)
+```
+
+---
+![bg](https://fakeimg.pl/700x400/ff0000,0/0A6BAC?retina=1&text=Display:+Puzzle)
+
+---
+## How to implement a display?
+
+- Rule: every anwer with  *unknown* keys is forwarded to the `mastrogpt/display`
+  -  Known keys are: `output`, `state` and `form`
+
+## Example: generating a chess position
+```
+!ops invoke mastrogpt/demo input=chess | jq .body | tee chess.json
+!ops invoke mastrogpt/display -P chess.json
+```
+ `jq` extracts the body, `tee` saves in a file, `-P` reads params from file
+
+
+
+---
+# Ask for a chess `puzzle` in FEN format
+
+```python
+  res = {}
+  if inp == "puzzle":
+    inp = "generate a chess puzzle in FEN format"
+    out = chat(args, inp)
+    fen = extract_fen(out)
+    if fen:
+       print(fen)
+       res['chess'] = fen
+    else:
+      out = "Bad FEN position."
+```
+### Using `mistral`, as `llama` generates bad FEN strings
+
+
+---
+#  FEN extraction from LLM output
+
+Regular expression surgery:
+
+```python
+def extract_fen(out):
+  pattern = r"([rnbqkpRNBQKP1-8]+\/){7}[rnbqkpRNBQKP1-8]+"
+  fen = None
+  m = re.search(pattern, out, re.MULTILINE)
+  if m:
+    fen = m.group(0)
+  return fen
+```
+
+### It is very common to extract output with regexp
+
+---
+![bg](https://fakeimg.pl/700x400/ff0000,0/0A6BAC?retina=1&text=Exercise)
+
+---
+# Exercise
+
+- Modify the `puzzle` command to show a form to customize the puzzle:
+
+<center>
+<img src="3-form/chesspuzzle.png">
+</center>
+
+- Change the prompt to ask for a puzzle with the selected pieces
