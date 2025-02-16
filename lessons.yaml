@@ -65,6 +65,7 @@
     - lessons/3-form/form.png
     - lessons/3-form/chesspuzzle.png
     - lessons/3-form/update.png
+    - packages/mastrogpt/index/70-Form.json
     - packages/form/puzzle/puzzle.py.exercise
     - packages/form/puzzle/__main__.py
     - packages/form/hello.py
