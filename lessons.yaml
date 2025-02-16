@@ -64,13 +64,16 @@
     - lessons/3-form.md
     - lessons/3-form/form.png
     - lessons/3-form/chesspuzzle.png
+    - lessons/3-form/update.png
     - packages/form/puzzle/puzzle.py.exercise
     - packages/form/puzzle/__main__.py
     - packages/form/hello.py
+    - packages/form/auth/__main__.py
     - packages/form/auth/auth.py
     - packages/form/postgen/__main__.py
     - packages/form/postgen/postgen.py
-    - packages/form/auth/__main__.py
+    - packages/form/cache/__main__.py
+    - packages/form/cache/cache.py
     - tests/form/test_puzzle.py
     - tests/form/test_auth_int.py
     - tests/form/test_auth.py

@@ -34,6 +34,11 @@ html: true
 
 - Exercise: Custom Puzzle
 
+
+---
+
+![bg 80%](3-form/update.png)
+
 ---
 
 ![bg](https://fakeimg.pl/700x400/ff0000,0/0A6BAC?retina=1&text=Authentication)

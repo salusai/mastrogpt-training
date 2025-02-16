@@ -4,6 +4,10 @@
         "url": "form/auth"
     },
     {
+        "name": "Cache",
+        "url": "form/cache"
+    },
+    {
         "name": "PostGen",
         "url": "form/postgen"
     },
