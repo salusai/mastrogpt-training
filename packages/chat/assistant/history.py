@@ -15,27 +15,27 @@ class History:
 
   # connect to redis and setup a queue with expiry date of one day
   def __init__(self, args):
-    self.cache = redis.from_url(args.get("REDIS_URL", os.getenv("REDIS_URL")))
+    prefix = args.get("REDIS_PREFIX", os.getenv("REDIS_PREFIX"))
+    redis_url = args.get("REDIS_URL", os.getenv("REDIS_URL"))
+    self.cache = redis.from_url(redis_url)
     self.queue = args.get("state")
     
     if self.queue is None:
-      self.queue =  args.get("REDIS_PREFIX")+":"+str(uuid.uuid4())
+      self.queue = prefix+"assistant:"+str(uuid.uuid4())
       self.cache.expire(self.queue, 86400)
       self.prompt("system", ROLE)
     
     base_url = None
     api_key = None
-    if "OLLAMA_HOST" in args:
       
-      host = args.get("OLLAMA_HOST", os.getenv("OLLAMA_HOST"))
-      api_key = args.get("AUTH", os.getenv("AUTH"))
-      base_url = f"https://{api_key}@{host}/v1"
-      
-    if base_url:
-      self.client = openai.OpenAI(
-          base_url = base_url,
-          api_key = api_key,
-      )
+    host = args.get("OLLAMA_HOST", os.getenv("OLLAMA_HOST"))
+    api_key = args.get("AUTH", os.getenv("AUTH"))
+    base_url = f"https://{api_key}@{host}/v1"
+    
+    self.client = openai.OpenAI(
+      base_url = base_url,
+      api_key = api_key,
+    )
 
   # push in redis an entry  - assumes redis and quue has been initialized
   def prompt(self, role, content):

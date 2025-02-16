@@ -67,8 +67,8 @@ html: true
 ### Action authentication
 
 ```
-code form/hello.py                               # note NO --web true
-ops ide devel                                    # deploy everything
+code packages/form/hello.py                               # note NO --web true
+ops ide deploy form/hello.py                              # deploy everything
 ops url form/hello                               # get url
 curl https://openserverless.dev/api/v1/namespaces/msciab/actions/form/hello
 ```
@@ -90,6 +90,8 @@ curl -u $AUTH -X POST "$URL?$FLAGS"
   - **WARNING**: *you can access them freely if you know the URL*
 
 ```
+code packages/form/auth/__main__.py
+ops ide deploy form/auth
 URL=$(ops url form/auth | tail +2)
 curl $URL
 ```
@@ -106,7 +108,7 @@ curl $URL
 
 # Pinocchio auth token 
 
-- Invoke from Pinocchio  `Form/Hello`  and check logs
+- Invoke from Pinocchio  `Form/Auth`  and check logs
   
 `
 Token: pinocchio:Z_DaI31ONacHEDjzznBpJW0jDjyBuNWKjDfwZGCm0qY
@@ -135,6 +137,7 @@ Checking:
 
 ```python  
 def auth(args):
+  # print("Token:", args.get("token", "<none>"))        # comment this 
   if unauthorized(args):
     return { "output": "you are not authenticated" }
   return { "output": "you are authenticated" }
