@@ -266,7 +266,7 @@ The tone of the post should be {data['tone']}.
     else:
       out = "Bad FEN position."
 ```
-### Using `mistral`, as `llama` generates bad FEN strings
+### Using `phi4`, as `llama` generates bad FEN strings
 
 
 ---
