@@ -17,7 +17,5 @@ Check this FEN:   "{fen}"
  
 Bye!
 """ 
-
-    assert puzzle.extract_fen(out) == fen
-    
+    assert puzzle.extract_fen(out) == fen  
     assert not puzzle.extract_fen("no fen\nhere\nsorry")

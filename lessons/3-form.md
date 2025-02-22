@@ -298,4 +298,4 @@ def extract_fen(out):
 <img src="3-form/chesspuzzle.png">
 </center>
 
-Check the solution with: `ops ai lessons 3-form --solution`
+Check the solution with: `ops ai lesson 3-form --solution`
