@@ -34,7 +34,6 @@ html: true
 
 - Exercise: Custom Puzzle
 
-
 ---
 
 ![bg 80%](3-form/update.png)

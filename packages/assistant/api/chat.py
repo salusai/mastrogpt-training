@@ -19,6 +19,10 @@ class Chat:
         self.messages = []
         self.add(ROLE)
         
+        #TODO:E4.1 add a sock field 
+        # conect to the streamer using STREAM_HOST and STREAM_PORT
+        #END TODO
+        
     def add(self, msg):
         [role, content] = msg.split(":", maxsplit=1)
         self.messages.append({
@@ -27,6 +31,7 @@ class Chat:
         })
     
     def complete(self):
+        #TODO:E4.2 change the code to implement the steaming
         res = self.client.chat.completions.create(
             model=MODEL,
             messages=self.messages,
@@ -36,3 +41,5 @@ class Chat:
             out = res.choices[0].message.content
             self.add(f"assistant:{out}")
         return out
+        #END TODO
+    

@@ -3,22 +3,31 @@ import history
 
 def stateful(args):
   
-  hi = history.History(args)
-  ch = chat.Chat(args)
   
   inp = args.get("input", "")
   out = f"Hello from {chat.MODEL}"
   res = {}
   
   if inp != "":
+    # load the history in the chat
+    ch = chat.Chat(args)
+    #TODO:E4.3 load the history
+    import history
+    hi = history.History(args)
     hi.load(ch)
+    #END TODO
+    # add a message and save it 
     msg = f"user:{inp}"
     ch.add(msg)
-    hi.save(msg)
     print(ch.messages)
     out = ch.complete()
+    # complete, save the assistant and return the id
+    #TODO:E4.4 save the message and the state
+    # return the id 
+    hi.save(msg)
     hi.save(f"assistant:{out}")
     res['state'] = hi.id()
+    #END TODO
 
   res['output'] = out
   return res
