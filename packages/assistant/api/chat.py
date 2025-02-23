@@ -4,6 +4,26 @@ import openai
 MODEL = "llama3.1:8b"
 ROLE = "system:You are an helpful assistant."
 
+#TODO:E4.1 add the stream function
+#fix it to extract line.choices[0].delta.content
+import json, socket, traceback
+def stream(args, lines):
+  sock = args.get("STREAM_HOST")
+  port = int(args.get("STREAM_PORT"))
+  out = ""
+  with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.connect((sock, port))
+    try:
+      for line in lines:
+        msg = {"output": line.choices[0].delta.content}
+        s.sendall(json.dumps(msg).encode("utf-8"))
+        out += str(line) #; print(line, end='')
+    except Exception as e:
+      traceback.print_exc(e)
+      out = str(e)
+  return out
+#END TODO
+
 class Chat:
     def __init__(self, args):
         
@@ -19,27 +39,34 @@ class Chat:
         self.messages = []
         self.add(ROLE)
         
-        #TODO:E4.1 add a sock field 
-        # conect to the streamer using STREAM_HOST and STREAM_PORT
+        #TODO:E4.1 
+        # save args in a field
+        self.args = args
         #END TODO
         
     def add(self, msg):
         [role, content] = msg.split(":", maxsplit=1)
         self.messages.append({
-                "role": role,
-                "content": content,
+            "role": role,
+            "content": content,
         })
     
     def complete(self):
-        #TODO:E4.2 change the code to implement the steaming
+        #TODO:E4.1 
+        # add stream: True
         res = self.client.chat.completions.create(
             model=MODEL,
             messages=self.messages,
+            stream=True,
         )
-        out = "error"
-        if len(res.choices) >0:
-            out = res.choices[0].message.content
+        # END TODO
+        try: 
+            #TODO:4.1 stream the result 
+            #out = res.choices[0].message.content
+            out = stream(self.args, res)
+            #END TODO
             self.add(f"assistant:{out}")
+        except:
+            out =  "error"
         return out
-        #END TODO
     
