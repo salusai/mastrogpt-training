@@ -12,13 +12,13 @@ class History:
         self.queue = args.get("state")
         if self.queue is None:
             self.queue = prefix+"assistant:"+str(uuid.uuid4())
-            self.cache.expire(self.queue, 86400)
             
     def id(self):
         return self.queue
 
     def save(self, msg):
         self.cache.rpush(self.queue, msg)
+        self.cache.expire(self.queue, 86400)
         return self.queue
         
     def load(self, ch):

@@ -24,7 +24,7 @@ html: true
 ---
 ![bg left:50% 80%](assets/mastrogpt.png)
 
-## Stateful Assistant
+## Stateful Assistant & OpenAI API 
 
 - OpenAI api
 
@@ -186,7 +186,7 @@ ch.messages
 
 # Introducing REDIS
 
-REmote DIctionry Server
+REmote DIctionary Server
 - a fast cache of data structures (string list map etc)
 - the backbone of serverless applications
  
@@ -241,7 +241,9 @@ for item in rd.lrange(f"{prefix}list", 0, -1):
    - generate an unique key for storing a state
    - expiring this key in one day
 ```python
+import uuid
 key = prefix+"assistant:"+str(uuid.uuid4())
+rd.rpush(key, "test")
 rd.expire(key, 86400)
 ```
    - store and recover this ID in the `state` field
@@ -253,19 +255,21 @@ rd.expire(key, 86400)
 ---
 # A History Class: testing
 
-- Testing the Chat class (`mock` simply prints the `add`)
+- Testing the History class 
 ```python
-import sys ; sys.path.append("packages/assistant/stateful") ; import history
+import sys ; sys.path.append("packages/assistant/stateful")
+import history, chat
 # saving state   
 hi = history.History({})
-uid = hi.save("system:hello") ; uid
+hi.save("system:I tell the country you tell the capital")
+hi.id()
 # recovering the state
-hi = history.History({"state": uid})
-uid = hi.save("user:world")
-hi.load(mock)
+hi = history.History({"state": hi.id()})
+hi.save("user:Rome")
+ch = chat.Chat({})
+hi.load(ch)
+ch.messages
 ```
-`system:hello`
-`user:world`
 
 ---
 # Implementation of a stateful chat
