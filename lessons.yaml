@@ -81,6 +81,19 @@
 
 4-assistant:
     - lessons/4-assistant.md
+    - lessons/4-assistant.pdf
+    - packages/assistant/stateful/__main__.py
+    - packages/assistant/stateful/stateful.py
+    - packages/assistant/stateful/history.py
+    - packages/assistant/stateful/chat.py
+    - packages/assistant/stateful/stateful.py.exercise
+    - packages/assistant/api/chat.py.exercise
+    - packages/assistant/api/api.py.exercise
+    - packages/assistant/api/__main__.py
+    - tests/assistant/test_stateful.py
+    - tests/assistant/test_api.py
+    - tests/assistant/test_api_int.py
+    - tests/assistant/test_stateful_int.py
 
 5-vision:
     - lessons/5-vision.md
