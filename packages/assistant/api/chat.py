@@ -61,7 +61,7 @@ class Chat:
         )
         # END TODO
         try: 
-            #TODO:4.1 stream the result 
+            #TODO:E4.1 stream the result 
             #out = res.choices[0].message.content
             out = stream(self.args, res)
             #END TODO

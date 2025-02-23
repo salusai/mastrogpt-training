@@ -17,14 +17,14 @@ html: true
 <img width="100%"src="assets/openserverless-logo.png">
 </center>
 
-## Lesson 3
+## Lesson 4
 
-## Form and Display support
+## Stateful Assistant & OpenAI API 
 
 ---
 ![bg left:50% 80%](assets/mastrogpt.png)
 
-## Form and Display Support
+## Stateful Assistant
 
 - OpenAI api
 
@@ -171,16 +171,14 @@ ch.messages
 
 # Exercise: add streaming to Chat
 
-- add streaming to the `chat` class under `packages\assistant\api\chat.py`
-
- - Search: `TODO:E4.1` 
-    - add a `sock` field  
-    - connect to the streamer using `STREAM_HOST` and `STREAM_PORT`
-
- - Search: `TODO:E4.2`
-    - use the `sock` field, streaming the OpenAI api call 
-
----
+- Search `TODO:E4.1`
+  - add the `stream` function adapted to the openai API  
+  - save the `args` in a field to find the socket
+  - request a stream from OpenAI api
+  - stream the response from OpenAI api
+  - activate the streaming in the response
+ 
+ ---
 
 ![bg](https://fakeimg.pl/700x400/ff0000,0/0A6BAC?retina=1&text=Redis)
 
@@ -239,14 +237,14 @@ for item in rd.lrange(f"{prefix}list", 0, -1):
 
 # A History class 
 
--How to store the state in REDIS
-   - generating an unique key for storing a state
+- How to store the state in REDIS
+   - generate an unique key for storing a state
    - expiring this key in one day
 ```python
 key = prefix+"assistant:"+str(uuid.uuid4())
 rd.expire(key, 86400)
 ```
-   - storing and recoveing this ID in the `state` field
+   - store and recover this ID in the `state` field
 
 `
 !code packages/assistant/stateful/history.py
@@ -287,6 +285,9 @@ hi.save(f"assistant:{out}")
 res['state'] = hi.id()
 ```
 ---
-
-
 # Exercise: add history to chat
+- Search `TODO:E4.2`
+  - Reload the history from redis
+  - Initialize the chat with the history
+  - Save the answer from the LLM
+  - Return the id of the history as state
