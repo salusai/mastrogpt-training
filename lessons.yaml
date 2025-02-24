@@ -84,7 +84,6 @@
     - lessons/4-assistant.pdf
     - packages/mastrogpt/index/60-Assistant.json
     - packages/assistant/stateful/__main__.py
-    - packages/assistant/stateful/stateful.py
     - packages/assistant/stateful/history.py
     - packages/assistant/stateful/chat.py
     - packages/assistant/stateful/stateful.py.exercise

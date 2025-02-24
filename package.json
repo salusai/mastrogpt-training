@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "start": "npx ops ide devel",
+    "start": "ops ide devel",
     "test": "pytest",
     "cli": "npx ops ai cli",
     "chat": "npx ops ai chat"
@@ -15,7 +15,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "apache-openserverless-cli": "^0.1.0-2412142134.dev"
-  }
+  "openserverless": {
+		"devel": "npm run dev",
+		"deploy": "npm run build"
+	}
 }
