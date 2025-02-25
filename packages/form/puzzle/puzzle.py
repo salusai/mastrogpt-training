@@ -52,20 +52,20 @@ def puzzle(args):
     res["form"] = FORM
   elif type(inp) is dict and "form" in inp:
       data = inp["form"]
+      inp = f"""
+      Generate a chess puzzle in FEN format
+      """
       pieces = ",".join(data.keys())
-      if pieces == "":
-        out = "Select at least one piece from the form"
+      if pieces != "":
+        # there is at least one piece selected
+        inp += " with pieces {pieces}"
+      out = chat(args,inp)
+      fen = extract_fen(out)
+      if fen:
+        print(fen)
+        res['chess'] = fen
       else:
-        inp = f"""
-        Generate a FEN string with {pieces}
-        """
-        out = chat(args,inp)
-        fen = extract_fen(out)
-        if fen:
-          print(fen)
-          res['chess'] = fen
-        else:
-          out = "Bad FEN position."
+        out = "Bad FEN position."
   elif inp.startswith("fen"):
     fen = extract_fen(inp)
     if fen:
