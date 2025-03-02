@@ -193,7 +193,7 @@ external_url = args.get("S3_API_URL") # not available in test
 - Internal Test: `!grep S3 tests/.env`
 
 ---
-# Connectiing to the client
+# Connecting to the client
 
 ```python
 import os, boto3, base64, pathlib
