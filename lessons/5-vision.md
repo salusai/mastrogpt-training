@@ -171,13 +171,14 @@ res['html'] = f'<img src="data:image/png;base64,{img}">'
 - Internal TEST endpoint: `http`, `S3_HOST` and `S3_PORT` in test
   - configured in `tests/.env`
 - External DEPLOYMENT endpoint: `https://s3.openserverless.dev`
-  - configured in  `packages/.env`
+  - variable `S3_API_URL`
 
 ---
 
 # S3 endpoint
 
 ```python
+import os
 args = {}
 # endpoint
 host = args.get("S3_HOST", os.getenv("S3_HOST"))
@@ -185,12 +186,11 @@ port = args.get("S3_PORT", os.getenv("S3_PORT"))
 url = f"http://{host}:{port}"
 # bucket
 bucket = args.get("S3_BUCKET_DATA", os.getenv("S3_BUCKET_DATA"))
-external_url = args.get("S3_EXTERNAL_HOST") # not available in test
+external_url = args.get("S3_API_URL") # not available in test
 ```
 
-- Internal Test: `!grep S3 tests/.env`
 - Internal Deploy: `!ops -config -d | grep S3`
-- External: `!grep S3 packages/.env`
+- Internal Test: `!grep S3 tests/.env`
 
 ---
 # Connectiing to the client
@@ -228,6 +228,7 @@ data = res["Body"].read()
 
 ```python
 res = client.list_objects_v2(Bucket=bucket)
+'Contents' in res
 res['Contents']
 ```
 
