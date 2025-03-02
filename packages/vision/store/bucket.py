@@ -28,7 +28,7 @@ class Bucket:
       except:
         return ""
       
-    def url(self, key, expiration):
+    def exturl(self, key, expiration):
       url = self.client.generate_presigned_url(
         'get_object',
         Params={'Bucket': self.bucket, 'Key': key},

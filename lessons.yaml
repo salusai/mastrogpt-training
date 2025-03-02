@@ -97,6 +97,20 @@
 
 5-vision:
     - lessons/5-vision.md
+    - lessons/5-vision.pdf
+    - lessons/5-vision/form-vision-etc.png
+    - lessons/5-vision/form-store-s3.png
+    - packages/mastrogpt/index/50-Vision.json
+    - packages/vision/form/form.py
+    - packages/vision/form/__main__.py
+    - packages/vision/form/vision.py
+    - packages/vision/store/__main__.py
+    - packages/vision/store/store.py
+    - packages/vision/store/vision.py
+    - packages/vision/store/bucket.py
+    - tests/vision/test_store.py
+    - tests/vision/test_form.py
+    - tests/vision/cat.jpg
 
 6-vectordb:
     - lessons/6-vectordb.md

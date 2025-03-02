@@ -32,7 +32,7 @@ def store(args):
       img = buc.read_b64(key)
       vis = vision.Vision(args)
       out += vis.decode(img)
-      url = buc.url(key, 3600)
+      url = buc.exturl(key, 3600)
       res['html'] = f"<img src='{url}'>"
       print(url)
     else:
