@@ -11,6 +11,7 @@ class Bucket:
         cfg = Config(signature_version='s3v4')
         self.client = boto3.client('s3', region_name='us-east-1', endpoint_url=url, aws_access_key_id=key, aws_secret_access_key=sec)
         self.bucket = args.get("S3_BUCKET_DATA", os.getenv("S3_BUCKET_DATA"))
+        self.external_url = args.get("S3_EXTERNAL_URL")
         
     def write(self, key, body):
         try:
@@ -26,6 +27,18 @@ class Bucket:
         return base64.b64encode(data).decode("utf-8")
       except:
         return ""
+      
+    def url(self, key, expiration):
+      url = self.client.generate_presigned_url(
+        'get_object',
+        Params={'Bucket': self.bucket, 'Key': key},
+        ExpiresIn=expiration)
+      if self.external_url:
+        from urllib.parse import urlparse, urlunparse
+        parsed_url = urlparse(url)
+        new_parsed = urlparse(self.external_url)
+        url = urlunparse((new_parsed.scheme, new_parsed.netloc, parsed_url.path, parsed_url.params, parsed_url.query, parsed_url.fragment))
+      return url
 
     def size(self, key):
       try:

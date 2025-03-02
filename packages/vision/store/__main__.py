@@ -7,6 +7,7 @@
 #--param S3_ACCESS_KEY $S3_ACCESS_KEY
 #--param S3_SECRET_KEY $S3_SECRET_KEY
 #--param S3_BUCKET_DATA $S3_BUCKET_DATA
+#--param S3_EXTERNAL_URL $S3_EXTERNAL_URL
 
 import store
 def main(args):

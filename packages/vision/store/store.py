@@ -10,6 +10,7 @@ Usage:
 """
 
 def store(args):
+  res = {}
   out = USAGE
   inp = args.get("input", "")
   buc = bucket.Bucket(args)
@@ -26,14 +27,18 @@ def store(args):
   elif inp.startswith("@"):
     ls = buc.find(inp[1:])
     if len(ls) > 0:
-      out = f"Looking at {ls[0]}, I see:\n"
+      key = ls[0]
+      out = f"Looking at {key}, I see:\n"
+      img = buc.read_b64(key)
       vis = vision.Vision(args)
-      img = buc.read_b64(ls[0])
       out += vis.decode(img)
+      url = buc.url(key, 3600)
+      res['html'] = f"<img src='{url}'>"
+      print(url)
     else:
       out = f"Not found '*{inp[1:]}*'"
 
-
-  return {"output": out}
+  res['output'] = out
+  return res
 
     

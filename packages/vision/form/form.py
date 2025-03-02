@@ -21,6 +21,7 @@ def form(args):
     print(f"uploaded size {len(img)}")
     vis = vision.Vision(args)
     out = vis.decode(img)
+    res['html'] = f'<img src="data:image/png;base64,{img}">'
     
   res['form'] = FORM
   res['output'] = out
