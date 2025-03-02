@@ -9,7 +9,7 @@ class Bucket:
         sec = args.get("S3_SECRET_KEY", os.getenv("S3_SECRET_KEY"))
         self.client = boto3.client('s3', region_name='us-east-1', endpoint_url=url, aws_access_key_id=key, aws_secret_access_key=sec)
         self.bucket = args.get("S3_BUCKET_DATA", os.getenv("S3_BUCKET_DATA"))
-        self.external_url = args.get("S3_EXTERNAL_URL")
+        self.external_url = args.get("S3_API_URL")
         
     def write(self, key, body):
         try:
