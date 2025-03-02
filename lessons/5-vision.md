@@ -33,7 +33,7 @@ html: true
 
 - Managing S3 Storage
 
-- Vision Upload action
+- Vision Store action
 
 ---
 
@@ -130,7 +130,7 @@ FORM = [{
 - You can display an image in base64 format with:
 
 ```html
-<img src='ata:image/png;base64,<base64-image>'>
+<img src='data:image/png;base64,<base64-image>'>
 ```
 
 - Using Pinocchio  Display support
@@ -185,7 +185,7 @@ port = args.get("S3_PORT", os.getenv("S3_PORT"))
 url = f"http://{host}:{port}"
 # bucket
 bucket = args.get("S3_BUCKET_DATA", os.getenv("S3_BUCKET_DATA"))
-external_url = args.get("S3_EXTERNAL_URL") # not available in test
+external_url = args.get("S3_EXTERNAL_HOST") # not available in test
 ```
 
 - Internal Test: `!grep S3 tests/.env`
@@ -197,50 +197,46 @@ external_url = args.get("S3_EXTERNAL_URL") # not available in test
 
 ```python
 import os, boto3, base64, pathlib
-from botocore.client import Config
 
 key = args.get("S3_ACCESS_KEY", os.getenv("S3_ACCESS_KEY"))
 sec = args.get("S3_SECRET_KEY", os.getenv("S3_SECRET_KEY"))
-cfg = Config(signature_version='s3v4')
 client = boto3.client('s3',
    endpoint_url=url,  region_name='us-east-1', 
    aws_access_key_id=key, aws_secret_access_key=sec)
 ```
 
 ---
-## S3 File Operation
+## S3 Read and Write objects
 
 ### write:
 ```python
 body = pathlib.Path("tests/vision/cat.jpg").read_bytes()
 client.put_object(Bucket=bucket, Key="cat.jpg", Body=body)
 ````
+
 ### read:
 ```python
-client.get_object(Bucket=bucket, Key='cat.jpg')
+res = client.get_object(Bucket=bucket, Key='cat.jpg')
+data = res["Body"].read()
+```
+
+---
+
+# Listing a bucket and deleting objects
+
+### list:
+
+```python
+res = client.list_objects_v2(Bucket=bucket)
+res['Contents']
+```
+
+### delete:
+
 ```
 ### delete:
 ```python
 client.delete_object(Bucket=bucket, Key='cat.jpg')
-```
-
----
-# Inspecting a bucket
-
-```python
-# setup
-client.put_object(Bucket=bucket, Key="first.jpg", Body=body)
-client.put_object(Bucket=bucket, Key="second.jpg", Body=body)
-```
-Listing and finding
-```python
-ls = []
-res = client.list_objects_v2(Bucket=bucket)
-if 'Contents' in res:
-  for obj in res['Contents']:
-    name = obj['Key']
-    if name.find(sub) != -1:
-      ls.append(name)
 ```
 
 ---
@@ -256,17 +252,19 @@ if 'Contents' in res:
 
 - You need to create a **signed** url for temporary access
 ```python
-url = self.client.generate_presigned_url('get_object',
-  Params={'Bucket': bucket, 'Key': 'cat.jpg', ExpiresIn=expiration)
+client.put_object(Bucket=bucket, Key="cat.jpg", Body=body)
+url = client.generate_presigned_url('get_object',
+  Params={'Bucket': bucket, 'Key': 'cat.jpg'}, ExpiresIn=3600)
 ```
+
 - Fixing the url for external access:
 ```python
+external_url = "https://openserverless.dev" 
 from urllib.parse import urlparse, urlunparse
 old = urlparse(url) ; pref = urlparse(external_url)
 url = urlunparse((pref.scheme, pref.netloc, 
-old.path, old.params, old.query, old.fragment))
+                  old.path, old.params, old.query, old.fragment))
 ```
-
 
 ---
 
