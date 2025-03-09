@@ -7,7 +7,7 @@ Start with ! to remove text with a substring.
 """
 
 def load(args):
-
+  
   collection = args.get("COLLECTION", "default")
   out = f"{USAGE}Current colletion is {collection}"
   inp = str(args.get('input', ""))
