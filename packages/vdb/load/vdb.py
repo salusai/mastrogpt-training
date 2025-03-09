@@ -63,11 +63,13 @@ class VectorDB:
     cur = self.client.query_iterator(collection_name=self.collection, 
               batchSize=2, output_fields=["text"])
     res = cur.next()
+    ids = []
     while len(res) > 0:
-      ids = []
       for ent in res:
         if ent.get('text', "").find(inp) != -1:
           ids.append(ent.get('id'))
       res = cur.next()
-    res = self.client.delete(collection_name=self.collection, ids=ids)
-    return res['delete_count']
+    if len(ids) >0:
+      res = self.client.delete(collection_name=self.collection, ids=ids)
+      return res['delete_count']
+    return 0

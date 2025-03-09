@@ -12,18 +12,11 @@ def test_store():
     assert len(ls) == 1
     sz =  buc.size(ls[0])
     assert sz > 0
-<<<<<<< HEAD
-    b64 = buc.read(ls[0])
-    assert len(b64) >= sz
-    vis = vision.Vision({})
-    res = vis.decode(base64.b64encode(b64).decode("utf-8"))
-=======
     file = buc.read(ls[0])
     assert len(file) == sz
     vis = vision.Vision({})
     b64 = base64.b64encode(file).decode()
     res = vis.decode(b64)
->>>>>>> abf6e5c (vdb)
     assert res.find("cat") != -1
     n = buc.remove(ls[0])
     assert n == 1

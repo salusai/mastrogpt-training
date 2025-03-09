@@ -10,7 +10,7 @@ def load(args):
 
   collection = args.get("COLLECTION", "default")
   out = f"{USAGE}Current colletion is {collection}"
-  inp = args.get('input', "")
+  inp = str(args.get('input', ""))
   db = vdb.VectorDB(args)
   
   if inp.startswith("*"):

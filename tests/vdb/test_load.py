@@ -11,7 +11,7 @@ def test_vdb():
     db.setup(drop=True)
     assert len(db.vector_search("hello")) == 0
     
-    db.insert("Hello world")
+    res = db.insert("Hello world")
     db.insert("This is a test")
     db.insert("This is another test")
 
