@@ -15,42 +15,27 @@ class History:
 
   # connect to redis and setup a queue with expiry date of one day
   def __init__(self, args):
-    self.cache = redis.from_url(args.get("REDIS_URL"))      
+    prefix = args.get("REDIS_PREFIX", os.getenv("REDIS_PREFIX"))
+    redis_url = args.get("REDIS_URL", os.getenv("REDIS_URL"))
+    self.cache = redis.from_url(redis_url)
     self.queue = args.get("state")
     
     if self.queue is None:
-      self.queue =  args.get("REDIS_PREFIX")+":"+str(uuid.uuid4())
+      self.queue = prefix+"assistant:"+str(uuid.uuid4())
       self.cache.expire(self.queue, 86400)
       self.prompt("system", ROLE)
     
     base_url = None
     api_key = None
-    if "OLLAMA_HOST" in args:
       
-      #host = f"https://{args.get("OLLAMA_HOST", os.environ.get("OLLAMA_HOST"))}"
-      #token = args.get("OLLAMA_TOKEN", os.environ.get("AUTH"))
-      #auth = (token.split(":")[0], token.split(":")[1])
-      #client = ollama.Client(host, auth=auth)
-
-      host = urlparse(args.get("OLLAMA_HOST"))
-      token = args.get("OLLAMA_TOKEN", os.environ.get("AUTH"))
-      #username = args.get("OLLAMA_USERNAME")
-      #password = args.get("OLLAMA_PASSWORD")
-      #netloc = f"{token}@{url.netloc}"
-      base_url = urlunparse((url.scheme, netloc, "/v1", url.params, url.query, url.fragment))
-
-      #host = args.get("OLLAMA_HOST", os.environ.get("OLLAMA_HOST"))
-      #token = args.get("OLLAMA_TOKEN", os.environ.get("AUTH"))
-      #base_url = f"https://{token}@{host}/v1"      
-      
-      api_key = "ollama" # not really an api key - just a placeholder
-      
-    if base_url:
-      self.client = openai.OpenAI(
-          base_url = base_url,
-          api_key = api_key,
-      )
-
+    host = args.get("OLLAMA_HOST", os.getenv("OLLAMA_HOST"))
+    api_key = args.get("AUTH", os.getenv("AUTH"))
+    base_url = f"https://{api_key}@{host}/v1"
+    
+    self.client = openai.OpenAI(
+      base_url = base_url,
+      api_key = api_key,
+    )
 
   # push in redis an entry  - assumes redis and quue has been initialized
   def prompt(self, role, content):

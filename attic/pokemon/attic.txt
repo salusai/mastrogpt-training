@@ -1,0 +1,42 @@
+"""
+Analize the html and return the values I am asking.
+Search all the 'a' tag with class 'ent-name'.
+
+For each of those tag, return a JSON in this format:
+```
+{
+  "name": <name>
+  "href": <href>
+}
+```
+Where:
+<name> is the text contained in the tag
+<href> is the value of the attribute 'href' 
+Do not stop after the first 5, continue until the end.
+Only return the JSON and nothing else.
+"""
+
+def scrape(args, url, prompt):
+  html = req.get(url).text
+  ch = chat.Chat(args)
+  ch.add(f"""user:
+I have the following html:
+```
+{html}
+```
+{prompt}
+""")
+  return ch.complete()
+
+
+def scrape(args, url, prompt):
+  html = req.get(url).text
+  ch = chat.Chat(args)
+  ch.add(f"""user:
+I have the following html:
+```
+{html}
+```
+{prompt}
+""")
+  return ch.complete()

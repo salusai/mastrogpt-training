@@ -1,7 +1,7 @@
 #--kind python:default
 #--web true
 #--param OLLAMA_HOST $OLLAMA_HOST
-#--param OLLAMA_TOKEN $AUTH
-import chat
+#--param AUTH $AUTH
+import pokemon
 def main(args):
-  return {"body": chat.chat(args)}
+  return { "body": pokemon.pokemon(args) }

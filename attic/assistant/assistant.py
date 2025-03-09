@@ -1,4 +1,3 @@
-
 import history
 
 def assistant(args):
