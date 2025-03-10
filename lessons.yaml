@@ -118,6 +118,7 @@
     - lessons/6-vdb.pdf
     - lessons/bitcoin.pdf
     - tests/vdb/test_load.py
+    - packages/vdb/load/__main__.py
     - packages/vdb/load/vdb.py
     - packages/vdb/load/load.py
     - packages/mastrogpt/index/40-RAG.json

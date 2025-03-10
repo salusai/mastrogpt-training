@@ -43,14 +43,13 @@ html: true
 
 - Milvus is a No-SQL database optimized for **vector searches**
 
-- Multiple **databases**, each database has multiple **collections**
-
-- Each collection has a **schema** and **indexes**
-
-- Vector Search:
   - finding **similarities** in a dataset looking at their **numeric representation**
 
   - text is transformed in a numeric representatino using an **embedding model** then stored
+
+- Multiple **databases**, each database has multiple **collections**
+
+- Each collection has a **schema** and **indexes**
 
 ---
 
@@ -73,7 +72,7 @@ client.drop_collection("test")
 
 ---
 ## Collections
-![bg 85%](6-vdb/collection-explained.png)
+![bg 80%](6-vdb/collection-explained.png)
 
 ---
 
@@ -161,7 +160,8 @@ out = res.get('embedding', [])
 # VectorDB with embedding
 - Using the `VectorDB` class
 ```python
-sys.path.append("packages/vdb/load")
+!code packages/vdb/load/vdb.py
+import sys ; sys.path.append("packages/vdb/load")
 import vdb
 db = vdb.VectorDB({})
 ```
