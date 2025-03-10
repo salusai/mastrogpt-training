@@ -206,18 +206,27 @@ for item in cur[0]:
 `231.84872436523438 This is another test`
 `181.67494201660156 Hello World`
 
- Note that output it is ordered by **distance**
+ Note output is ordered by **distance**
 
 ---
 ### `vdb/load` action
 
 ![bg left:60%](6-vdb/vdb-load.png)
 
+
+ Using command line
+
 ```
-!code packages/vdb/load/vdb.py
-!code packages/vdb/load/load.py
+!ops invoke vdb/load input="openserverless cli import"
+!ops invoke vdb/load input="*openserverless" | jq .body.output
 ```
 
+Looking at code
+
+```
+!code packages/vdb/load/vdb.py
+!code packages/vdb/load/load.py 
+```
 
 ---
 
@@ -231,13 +240,13 @@ Pages from a PDF
 ```python
 import pymupdf
 doc = pymupdf.open("lessons/bitcoin.pdf")  # load a file
-text = page[0].get_text()                  # extract text from page
+text = doc[0].get_text()                  # extract text from page
 ```
 Split in sentences
 ```python
 import nltk.data
+nltk.download('punkt')                   # load tokenizer model
 from nltk.tokenize import sent_tokenize
-nltk.data.find('tokenizers/punkt')       # load tokenized model
 sentences = sent_tokenize(text)          # extract sentences from text
 enum = enumerate(sentences, 1)           # enumerate
 sent = next(enum)                        # extract one sentence
@@ -256,3 +265,17 @@ sent = next(enum)                        # extract one sentence
 `>>> converting lessons/bitcoin.pdf`
 `saved lessons/bitcoin.pdf.txt`
 
+---
+
+# Excercise: import from the web
+
+- Add to the `vdb/load` the ability to import content from http pages providing an `https://` url
+
+Hints:
+
+- process `input` starting with `https://`
+- use `requests` to read the url content
+- use `BeautifulSoap (bs4)` to process the content and extract text
+- Tokenize text with regular expressions: 
+https://stackoverflow.com/questions/75253187/tokenizing-the-text-without-the-use-of-libraries
+    
