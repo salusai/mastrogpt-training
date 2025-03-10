@@ -113,7 +113,14 @@
     - tests/vision/cat.jpg
 
 6-vectordb:
-    - lessons/6-vectordb.md
+    - lessons/6-vdb/collection-explained.png
+    - lessons/6-vdb.md
+    - lessons/6-vdb.pdf
+    - lessons/bitcoin.pdf
+    - tests/vdb/test_load.py
+    - packages/vdb/load/vdb.py
+    - packages/vdb/load/load.py
+    - packages/mastrogpt/index/40-RAG.json
 
 7-rag:
     - lessons/7-rag.md

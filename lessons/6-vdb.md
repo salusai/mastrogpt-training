@@ -224,3 +224,35 @@ for item in cur[0]:
 ![bg](https://fakeimg.pl/700x400/ff0000,0/0A6BAC?retina=1&text=PDF+Import)
 
 ---
+
+### Extract content from PDF files
+
+Pages from a PDF
+```python
+import pymupdf
+doc = pymupdf.open("lessons/bitcoin.pdf")  # load a file
+text = page[0].get_text()                  # extract text from page
+```
+Split in sentences
+```python
+import nltk.data
+from nltk.tokenize import sent_tokenize
+nltk.data.find('tokenizers/punkt')       # load tokenized model
+sentences = sent_tokenize(text)          # extract sentences from text
+enum = enumerate(sentences, 1)           # enumerate
+sent = next(enum)                        # extract one sentence
+```
+
+---
+# ops ai loader
+
+```
+!ops ai loader
+```
+`ai loader [--action=<action>] <file>...`
+```
+!ops ai loader lessons/bitcoin.pdf
+```
+`>>> converting lessons/bitcoin.pdf`
+`saved lessons/bitcoin.pdf.txt`
+
