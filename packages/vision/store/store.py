@@ -1,5 +1,6 @@
 import bucket
 import vision
+import base64
 
 USAGE = """
 Usage:
@@ -29,10 +30,11 @@ def store(args):
     if len(ls) > 0:
       key = ls[0]
       out = f"Looking at {key}, I see:\n"
-      img = buc.read_b64(key)
+      data = buc.read(key)
+      img = base64.b64encode(data).decode("utf-8")
       vis = vision.Vision(args)
       out += vis.decode(img)
-      url = buc.url(key, 3600)
+      url = buc.exturl(key, 3600)
       res['html'] = f"<img src='{url}'>"
       print(url)
     else:

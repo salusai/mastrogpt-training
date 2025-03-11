@@ -1,6 +1,7 @@
-import sys, pathlib
+import sys, pathlib, base64
 sys.path.append("packages/vision/store")
 import bucket, vision
+import base64
 
 def test_store():
     buc = bucket.Bucket({})
@@ -11,9 +12,10 @@ def test_store():
     assert len(ls) == 1
     sz =  buc.size(ls[0])
     assert sz > 0
-    b64 = buc.read_b64(ls[0])
-    assert len(b64) >= sz
+    file = buc.read(ls[0])
+    assert len(file) == sz
     vis = vision.Vision({})
+    b64 = base64.b64encode(file).decode()
     res = vis.decode(b64)
     assert res.find("cat") != -1
     n = buc.remove(ls[0])

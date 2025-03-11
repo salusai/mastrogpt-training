@@ -1,5 +1,4 @@
 import os, boto3, base64
-from botocore.client import Config
 
 class Bucket:
     def __init__(self, args):
@@ -8,10 +7,9 @@ class Bucket:
         url = f"http://{host}:{port}"
         key = args.get("S3_ACCESS_KEY", os.getenv("S3_ACCESS_KEY"))
         sec = args.get("S3_SECRET_KEY", os.getenv("S3_SECRET_KEY"))
-        cfg = Config(signature_version='s3v4')
         self.client = boto3.client('s3', region_name='us-east-1', endpoint_url=url, aws_access_key_id=key, aws_secret_access_key=sec)
         self.bucket = args.get("S3_BUCKET_DATA", os.getenv("S3_BUCKET_DATA"))
-        self.external_url = args.get("S3_EXTERNAL_URL")
+        self.external_url = args.get("S3_API_URL")
         
     def write(self, key, body):
         try:
@@ -20,15 +18,27 @@ class Bucket:
         except Exception as e:
           return str(e)
         
-    def read_b64(self, key):
+    def read(self, key):
       try:
         res = self.client.get_object(Bucket=self.bucket, Key=key)
         data = res["Body"].read()
-        return base64.b64encode(data).decode("utf-8")
+        return data
       except:
         return ""
-      
-    def url(self, key, expiration):
+
+    def remove(self, prefix):
+      count = 0
+      res = self.client.list_objects_v2(Bucket=self.bucket)
+      if 'Contents' in res:
+        for obj in res['Contents']:
+          #obj = res['Contents'][0]
+          key = obj['Key']
+          if key.startswith(prefix):
+            res = self.client.delete_object(Bucket=self.bucket, Key=key)
+            count += 1
+      return count
+
+    def exturl(self, key, expiration):
       url = self.client.generate_presigned_url(
         'get_object',
         Params={'Bucket': self.bucket, 'Key': key},
@@ -58,15 +68,4 @@ class Bucket:
             ls.append(name)
       return ls
 
-    def remove(self, prefix):
-      count = 0
-      res = self.client.list_objects_v2(Bucket=self.bucket)
-      if 'Contents' in res:
-        for obj in res['Contents']:
-          #obj = res['Contents'][0]
-          key = obj['Key']
-          if key.startswith(prefix):
-            res = self.client.delete_object(Bucket=self.bucket, Key=key)
-            count += 1
-      return count
 
