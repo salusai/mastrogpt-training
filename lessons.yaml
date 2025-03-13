@@ -114,6 +114,7 @@
 
 6-vectordb:
     - lessons/6-vdb/collection-explained.png
+    - lessons/6-vdb/vdb-load.png
     - lessons/6-vdb.md
     - lessons/6-vdb.pdf
     - lessons/bitcoin.pdf
