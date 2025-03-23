@@ -135,4 +135,5 @@
     - packages/rag/loader/loader.py
     - packages/rag/loader/vdb.py
     - packages/rag/loader/__main__.py
+    - packages/mastrogpt/index/41-RAG.json
 
