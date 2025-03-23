@@ -129,6 +129,7 @@
     - lessons/7-rag/rag-query.png
     - lessons/7-rag/rag-loader-cli.png
     - lessons/7-rag/rag-loader.png
+    - lessons/licon2txt.py
     - packages/rag/rag/rag.py
     - packages/rag/rag/vdb.py
     - packages/rag/rag/__main__.py
