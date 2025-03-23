@@ -125,4 +125,13 @@
 
 7-rag:
     - lessons/7-rag.md
+    - lessons/7-rag/rag-query.png
+    - lessons/7-rag/rag-loader-cli.png
+    - lessons/7-rag/rag-loader.png
+    - packages/rag/rag/rag.py
+    - packages/rag/rag/vdb.py
+    - packages/rag/rag/__main__.py
+    - packages/rag/loader/loader.py
+    - packages/rag/loader/vdb.py
+    - packages/rag/loader/__main__.py
 
