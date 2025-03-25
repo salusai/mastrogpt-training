@@ -1,7 +1,14 @@
 import os, requests as req
-import base64, pathlib, boto3
+import base64, pathlib, boto3, sys
 import vision
-from vision.store.bucket import Bucket
+
+# Get the parent directory
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
+# Add parent directory to sys.path
+sys.path.append(parent_dir)
+
+import bucket
 from datetime import datetime
 
 USAGE = "Please upload a picture and I will tell you what I see"
@@ -27,7 +34,7 @@ def form(args):
     out = vis.decode(img)
     # upload to S3
     ## setup the bucket
-    s3bucket = Bucket(args)
+    s3bucket = bucket.Bucket(args)
     ## define image key and write the file
     image_key = "file_" + datetime.now().strftime("%Y%m%d_%H%M%S%f")+".jpg"
     s3bucket.write(image_key, out)
