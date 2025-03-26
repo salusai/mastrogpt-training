@@ -162,7 +162,7 @@ ai loader [--action=<action>] [--chunksize=<size>]
 ```
 
 Use `--action=rag/loader` to select the loader action
-Use `--action=<collection>` to select collection 
+Use `--collection=<name>` to select collection 
 Chunksize defaults to 4000
 
 ---
@@ -198,7 +198,7 @@ VectorDB Class
 Start with `@[LPM][<size>][<collection>]` 
  to select the model then add `<size>` sentences 
  from the `<collection>` to the context.
-Models: L=llama P=phi4 D=deepseek M=mistral.
+Models: L=llama P=phi4 M=mistral.
 You can shorten collection names, 
 it will use the first one starting with the name.
 Your query is then passed to the LLM 
