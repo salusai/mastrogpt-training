@@ -63,10 +63,14 @@ def loader(args):
     count = db.remove_by_substring(inp[1:])
     out = f"Deleted {count} records."    
   elif inp != '':
-    out = "Inserted " 
-    for line in inp.split("\n"):
+    out = "Inserted "
+    lines = [inp]
+    if args.get("options","") == "splitlines":
+      lines = inp.split("\n")
+    for line in lines:
+      if line == '': continue
       res = db.insert(line)
-      out += " ".join([str(x) for x in res.get("ids", [])])
+      out += "\n".join([str(x) for x in res.get("ids", [])])
       out += "\n"
 
   return {"output": out, "state": f"{collection}:{limit}"}
