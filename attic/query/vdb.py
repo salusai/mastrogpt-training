@@ -3,14 +3,12 @@ from pymilvus import MilvusClient, DataType
 
 MODEL="mxbai-embed-large:latest"
 DIMENSION=1024
-LIMIT=30
+LIMIT=10
 
 class VectorDB:
 
-  def __init__(self, args, collection, shorten=False):
-      #uri = f"http://{args.get("MILVUS_HOST", os.getenv("MILVUS_HOST"))}"
-      uri = f"{args.get("ZILLIZ_HOST", "http://"+os.getenv("MILVUS_HOST"))}"
-      
+  def __init__(self, args, collection):
+      uri = f"http://{args.get("MILVUS_HOST", os.getenv("MILVUS_HOST"))}"
       token = args.get("MILVUS_TOKEN", os.getenv("MILVUS_TOKEN"))    
       db_name = args.get("MILVUS_DB_NAME", os.getenv("MILVUS_DB_NAME"))
       self.client =  MilvusClient(uri=uri, token=token, db_name=db_name)
@@ -18,15 +16,6 @@ class VectorDB:
       host = args.get("OLLAMA_HOST", os.getenv("OLLAMA_HOST"))
       auth = args.get("OLLAMA_TOKEN", os.getenv("AUTH"))
       self.url = f"https://{auth}@{host}/api/embeddings"
-
-      self.collections = self.client.list_collections()
-
-      if shorten:
-        for i in  self.collections:
-          #print(i)
-          if i.startswith(collection):
-            collection = i 
-            break
 
       self.setup(collection)
 

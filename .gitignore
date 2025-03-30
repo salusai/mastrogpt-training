@@ -8,3 +8,8 @@ node_modules/
 !tests/.env
 !packages/.env
 milvus/volumes/
+*.tmp
+*.pdf.txt
+docs/
+.envrc
+.wskprops
