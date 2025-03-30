@@ -8,8 +8,7 @@ LIMIT=30
 class VectorDB:
 
   def __init__(self, args, collection, shorten=False):
-      #uri = f"http://{args.get("MILVUS_HOST", os.getenv("MILVUS_HOST"))}"
-      uri = f"{args.get("ZILLIZ_HOST", "http://"+os.getenv("MILVUS_HOST"))}"
+      uri = f"http://{args.get("MILVUS_HOST", os.getenv("MILVUS_HOST"))}"
       
       token = args.get("MILVUS_TOKEN", os.getenv("MILVUS_TOKEN"))    
       db_name = args.get("MILVUS_DB_NAME", os.getenv("MILVUS_DB_NAME"))
