@@ -7,8 +7,6 @@
 #--param MILVUS_DB_NAME $MILVUS_DB_NAME
 #--param MILVUS_TOKEN $MILVUS_TOKEN
 
-
-import loader
+import query
 def main(args):
-  return { "body": loader.loader(args) }
-
+  return { "body": query.query(args) }
