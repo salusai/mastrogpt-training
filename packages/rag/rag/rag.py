@@ -121,7 +121,7 @@ def rag(args):
       res = db.vector_search(opt['content'], limit=opt['size'])
       prompt = ""
       if len(res) > 0:
-        prompt += "Consider the following thext:\n"
+        prompt += "Consider the following text:\n"
         for (w,txt) in res:
           prompt += f"{txt}\n"
         prompt += "Answer to the following prompt:\n"
