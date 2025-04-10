@@ -2,7 +2,7 @@ import vdb
 
 USAGE = f"""Welcome to the Vector DB Loader.
 Write text to insert in the DB. 
-Use `@[<coll>]` to select a collection and show the collections.
+Use `@[<coll>]` to select/create a collection and show the collections.
 Use `*<string>` to vector search the <string>  in the DB.
 Use `#<limit>`  to change the limit of searches.
 Use `!<substr>` to remove text with `<substr>` in collection.
